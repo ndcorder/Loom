@@ -1,0 +1,16 @@
+# Rust
+/proxy/target/
+**/*.rs.bk
+
+# SQLite cache / history
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Xcode
+/ui/**/xcuserdata/
+/ui/**/*.xcuserstate
+.DS_Store
+
+# Build output
+/tmp/loom-dd/
