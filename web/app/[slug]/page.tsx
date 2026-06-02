@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<PageParams>
   }
 
   return {
-    title: `${page.title} | Tether`,
+    title: page.title,
     description: page.description,
     alternates: {
       canonical: `/${page.slug}`,
