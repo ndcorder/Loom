@@ -2,10 +2,10 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-TMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/loom-e2e.XXXXXX")"
-PROXY_PORT="${LOOM_E2E_PROXY_PORT:-18080}"
-UPSTREAM_PORT="${LOOM_E2E_UPSTREAM_PORT:-18081}"
-DB_PATH="$TMP_DIR/loom-e2e.sqlite"
+TMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/Tether-e2e.XXXXXX")"
+PROXY_PORT="${Tether_E2E_PROXY_PORT:-18080}"
+UPSTREAM_PORT="${Tether_E2E_UPSTREAM_PORT:-18081}"
+DB_PATH="$TMP_DIR/Tether-e2e.sqlite"
 MOCK_LOG="$TMP_DIR/mock-upstream.log"
 PROXY_LOG="$TMP_DIR/proxy.log"
 MOCK_PID=""
@@ -79,7 +79,7 @@ const server = http.createServer((req, res) => {
 
     const parsed = JSON.parse(body || "{}");
     const response = {
-      id: "chatcmpl-loom-smoke",
+      id: "chatcmpl-Tether-smoke",
       object: "chat.completion",
       model: parsed.model || "smoke-model",
       choices: [
@@ -87,7 +87,7 @@ const server = http.createServer((req, res) => {
           index: 0,
           message: {
             role: "assistant",
-            content: "Smoke trace captured by Loom."
+            content: "Smoke trace captured by Tether."
           },
           finish_reason: "stop"
         }
@@ -101,7 +101,7 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(200, {
       "content-type": "application/json",
-      "openai-request-id": "req_loom_smoke"
+      "openai-request-id": "req_Tether_smoke"
     });
     res.end(JSON.stringify(response));
   });
@@ -120,15 +120,15 @@ PORT="$UPSTREAM_PORT" node "$TMP_DIR/mock-upstream.mjs" >"$MOCK_LOG" 2>&1 &
 MOCK_PID="$!"
 wait_for "http://127.0.0.1:$UPSTREAM_PORT/health" "mock upstream"
 
-echo "==> Starting Loom proxy on :$PROXY_PORT"
-LOOM_ADDR="127.0.0.1:$PROXY_PORT" \
-LOOM_DB="$DB_PATH" \
-LOOM_CACHE=on \
+echo "==> Starting Tether proxy on :$PROXY_PORT"
+Tether_ADDR="127.0.0.1:$PROXY_PORT" \
+Tether_DB="$DB_PATH" \
+Tether_CACHE=on \
 OPENAI_UPSTREAM="http://127.0.0.1:$UPSTREAM_PORT" \
 ANTHROPIC_UPSTREAM="http://127.0.0.1:$UPSTREAM_PORT" \
-"$ROOT/proxy/target/debug/loom-proxy" >"$PROXY_LOG" 2>&1 &
+"$ROOT/proxy/target/debug/Tether-proxy" >"$PROXY_LOG" 2>&1 &
 PROXY_PID="$!"
-wait_for "http://127.0.0.1:$PROXY_PORT/api/traces/current" "Loom proxy"
+wait_for "http://127.0.0.1:$PROXY_PORT/api/traces/current" "Tether proxy"
 
 curl -fsS -X DELETE "http://127.0.0.1:$PROXY_PORT/api/traces/current" >/dev/null || true
 
@@ -144,7 +144,7 @@ RESPONSE="$(
 RESPONSE="$RESPONSE" node - <<'JS'
 const response = JSON.parse(process.env.RESPONSE);
 const text = response.choices?.[0]?.message?.content;
-if (text !== "Smoke trace captured by Loom.") {
+if (text !== "Smoke trace captured by Tether.") {
   console.error("unexpected upstream response", response);
   process.exit(1);
 }
@@ -163,7 +163,7 @@ if (
   node.status === "success" &&
   node.step_name === "OPENAI completions" &&
   node.model === "gpt-4o-mini" &&
-  node.request_id === "req_loom_smoke" &&
+  node.request_id === "req_Tether_smoke" &&
   node.prompt.user.includes("Trace this request") &&
   node.response.text.includes("Smoke trace captured")
 ) {

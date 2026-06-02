@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_NAME="${LOOM_APP_NAME:-Loom}"
-DMG_NAME="${LOOM_DMG_NAME:-Loom.dmg}"
+APP_NAME="${Tether_APP_NAME:-Tether}"
+DMG_NAME="${Tether_DMG_NAME:-Tether.dmg}"
 DIST_DIR="$ROOT/dist"
 BUILD_DIR="$DIST_DIR/build"
 STAGE_DIR="$BUILD_DIR/dmg-stage"
@@ -31,7 +31,7 @@ cargo build --manifest-path "$ROOT/proxy/Cargo.toml" --release
 
 echo "==> Building macOS app"
 xcodebuild \
-  -project "$ROOT/ui/Loom.xcodeproj" \
+  -project "$ROOT/ui/Tether.xcodeproj" \
   -scheme "$APP_NAME" \
   -configuration Release \
   -destination "generic/platform=macOS" \
@@ -49,8 +49,8 @@ fi
 echo "==> Staging app bundle"
 cp -R "$BUILT_APP" "$APP_STAGE"
 mkdir -p "$APP_STAGE/Contents/Helpers"
-cp "$ROOT/proxy/target/release/loom-proxy" "$APP_STAGE/Contents/Helpers/loom-proxy"
-chmod +x "$APP_STAGE/Contents/Helpers/loom-proxy"
+cp "$ROOT/proxy/target/release/Tether-proxy" "$APP_STAGE/Contents/Helpers/Tether-proxy"
+chmod +x "$APP_STAGE/Contents/Helpers/Tether-proxy"
 
 echo "==> Normalizing app bundle metadata"
 if command -v dot_clean >/dev/null 2>&1; then

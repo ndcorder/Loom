@@ -1,6 +1,6 @@
-# Pricing — Loom
+# Pricing — Tether
 
-Loom is a local-first LLM observability tool for macOS developers.
+Tether is a local-first LLM observability tool for macOS developers.
 
 ## Alpha (Current)
 
@@ -19,11 +19,11 @@ Loom is a local-first LLM observability tool for macOS developers.
 
 ## Planned (Post-Alpha)
 
-Pricing for paid tiers has not been announced. Join the waitlist at https://useloom.dev/#download to be notified.
+Pricing for paid tiers has not been announced. Join the waitlist at https://useTether.dev/#download to be notified.
 
 ## Notes
 
 - No subscription required during alpha
 - No credit card required
 - No cloud account required
-- Data never sent to Loom servers — fully local
+- Data never sent to Tether servers — fully local

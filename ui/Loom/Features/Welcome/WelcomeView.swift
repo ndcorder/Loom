@@ -65,12 +65,12 @@ struct WelcomeView: View {
 private struct WelcomeBranding: View {
     var body: some View {
         VStack(spacing: 0) {
-            Image(systemName: "dot.radiowaves.left.and.right")
-                .font(.system(size: 52))
-                .symbolRenderingMode(.hierarchical)
-                .foregroundStyle(.teal)
+            Image("BrandIcon")
+                .resizable()
+                .scaledToFit()
                 .frame(width: 80, height: 80)
-                .background(.ultraThinMaterial, in: Circle())
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .shadow(color: .black.opacity(0.2), radius: 18, y: 10)
 
             Text("AgentTrace")
                 .font(.largeTitle)

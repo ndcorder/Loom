@@ -1,9 +1,9 @@
-# Loom
+# Tether
 ### The local command center for AI agent debugging.
 
-Loom intercepts, visualizes, caches, replays, and mocks LLM calls so builders can understand every agent decision before it reaches production.
+Tether intercepts, visualizes, caches, replays, and mocks LLM calls so builders can understand every agent decision before it reaches production.
 
-[Website](https://useloom.dev) • [Docs](#quick-start) • [Discord](#) • [GitHub](https://github.com/Hqzdev/Loom)
+[Website](https://useTether.dev) • [Docs](#quick-start) • [Discord](#) • [GitHub](https://github.com/Hqzdev/Tether)
 
 ---
 
@@ -11,7 +11,7 @@ Loom intercepts, visualizes, caches, replays, and mocks LLM calls so builders ca
 
 AI agents are becoming production systems, but the tools around them still feel like logs, guesswork, and late-night incident reports.
 
-Loom turns the invisible work of an agent into a living interface: every request, tool call, cached response, failure, replay, and cost signal becomes something a developer can inspect and trust. It is built for the moment when "the model did something weird" is no longer an acceptable debugging strategy.
+Tether turns the invisible work of an agent into a living interface: every request, tool call, cached response, failure, replay, and cost signal becomes something a developer can inspect and trust. It is built for the moment when "the model did something weird" is no longer an acceptable debugging strategy.
 
 The product is local-first by design. Prompts stay on the machine. API keys stay in the Keychain. Traces stay in local storage. Teams get the clarity of an observability platform without surrendering sensitive agent data to another cloud dashboard.
 
@@ -67,7 +67,7 @@ The product is local-first by design. Prompts stay on the machine. API keys stay
    Capture agent behavior through a local proxy instead of instrumenting every SDK call by hand.
 
 2. **Modular system**  
-   Use Loom as a visual debugger, cache layer, replay tool, privacy layer, or local observability console.
+   Use Tether as a visual debugger, cache layer, replay tool, privacy layer, or local observability console.
 
 3. **Real-time analytics**  
    Inspect latency, cache state, model metadata, errors, and response flow while the agent is still running.
@@ -132,7 +132,7 @@ The product is local-first by design. Prompts stay on the machine. API keys stay
 | `/` | Product landing page with hero, feature story, provider support, privacy narrative, and waitlist CTA. |
 | `/api/waitlist` | Waitlist capture endpoint for early access requests. |
 | `/features` | Planned feature breakdown for proxy capture, caching, replay, privacy, and provider support. |
-| `/docs` | Planned setup guide for routing OpenAI-compatible clients through Loom. |
+| `/docs` | Planned setup guide for routing OpenAI-compatible clients through Tether. |
 | `/download` | Planned macOS download and release notes page. |
 | `/pricing` | Planned packaging page for future Pro and team workflows. |
 
@@ -140,7 +140,7 @@ The product is local-first by design. Prompts stay on the machine. API keys stay
 
 ## Visual Identity
 
-Loom is designed like a premium developer instrument, not a marketing toy.
+Tether is designed like a premium developer instrument, not a marketing toy.
 
 **Gradient system**  
 Soft electric accents sit on top of dark, technical surfaces. Color is used for state, motion, and focus instead of decoration.
@@ -162,8 +162,8 @@ The site scales from landing-page storytelling to dense developer UI without los
 ## Quick Start
 
 ```bash
-git clone https://github.com/Hqzdev/Loom.git
-cd Loom/web
+git clone https://github.com/Hqzdev/Tether.git
+cd Tether/web
 npm install
 npm run dev
 ```

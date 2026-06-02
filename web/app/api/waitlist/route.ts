@@ -12,7 +12,7 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function waitlistFilePath() {
   return (
-    process.env.LOOM_WAITLIST_FILE ??
+    process.env.Tether_WAITLIST_FILE ??
     path.join(process.cwd(), "data", "waitlist.ndjson")
   );
 }

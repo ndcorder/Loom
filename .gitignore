@@ -13,7 +13,7 @@
 .DS_Store
 
 # Build output
-/tmp/loom-dd/
+/tmp/Tether-dd/
 /dist/
 /web/data/*.ndjson
 /web/public/downloads/*.dmg

@@ -4,7 +4,7 @@ import { type FormEvent, useEffect, useRef, useState } from "react";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { NODES, SESSION, type NodeStatus, type TraceNode } from "@/lib/data";
 
-const DOWNLOAD_HREF = "/downloads/Loom.dmg";
+const DOWNLOAD_HREF = "/downloads/Tether.dmg";
 
 const ICON_PATHS = {
   "diagram-project":
@@ -113,7 +113,7 @@ const CODE_LINES: { t: string; c?: string }[][] = [
     { t: " OpenAI" },
   ],
   [],
-  [{ t: "# route every call through Loom", c: "tk-comment" }],
+  [{ t: "# route every call through Tether", c: "tk-comment" }],
   [
     { t: "client " },
     { t: "=", c: "tk-punc" },
@@ -332,7 +332,7 @@ function InspectorGraph() {
   );
 }
 
-export default function LoomLanding() {
+export default function TetherLanding() {
   const reduce = usePrefersReducedMotion();
   const treeRef = useRef<HTMLDivElement>(null);
   const [visibleLines, setVisibleLines] = useState(0);
@@ -542,7 +542,7 @@ export default function LoomLanding() {
           Stop debugging AI agents <span className="grad">in the dark.</span>
         </h1>
         <p className="lead">
-          Loom intercepts every LLM call, visualizes complex agent trees,
+          Tether intercepts every LLM call, visualizes complex agent trees,
           and mocks responses - entirely locally, on your Mac. No SDK, no cloud,
           no token leaks.
         </p>
@@ -581,7 +581,7 @@ export default function LoomLanding() {
                 <i className="g" />
               </span>
               <span className="wtitle">
-                Loom <span className="wbadge">{SESSION.id}</span>
+                Tether <span className="wbadge">{SESSION.id}</span>
               </span>
               <span className="spacer" />
               <span className="wdots">
@@ -773,7 +773,7 @@ export default function LoomLanding() {
           <p className="section-sub">
             The right pane is the real app&apos;s inspector. Pick a feature on
             the left - it switches state exactly like clicking a node in
-            Loom.
+            Tether.
           </p>
         </div>
 
@@ -832,7 +832,7 @@ export default function LoomLanding() {
                     ["tokens_saved", "1,840 in - 256 out", "green"],
                     ["embedding_hash", "e3b0c44298fc1c14", ""],
                     ["retrieved_from", "local_cache", "cyan"],
-                    ["store", "~/.loom/cache.sqlite", ""],
+                    ["store", "~/.Tether/cache.sqlite", ""],
                     ["hit_rate (session)", "62%", "green"],
                   ].map(([key, value, tone]) => (
                     <div className="kv" key={key}>
@@ -904,7 +904,7 @@ export default function LoomLanding() {
                     {[
                       ["key", "OPENAI_API_KEY", "sk-********************7f2a - macOS Keychain", "SECURE"],
                       ["key", "ANTHROPIC_API_KEY", "sk-ant-************91be - macOS Keychain", "SECURE"],
-                      ["database", "Trace database", "~/.loom/traces.sqlite - 0 bytes sent", "LOCAL"],
+                      ["database", "Trace database", "~/.Tether/traces.sqlite - 0 bytes sent", "LOCAL"],
                       ["tower-broadcast", "Outbound connections", "only to providers you configured - telemetry off", "0 / hr"],
                     ].map(([icon, name, value, badge]) => (
                       <div className="kc-row" key={name}>
@@ -931,7 +931,7 @@ export default function LoomLanding() {
           <div className="kicker">Three lines to first trace</div>
           <h2 className="title">No SDK. Just change one base URL.</h2>
           <p className="section-sub">
-            Loom is a transparent proxy. Point your client at localhost
+            Tether is a transparent proxy. Point your client at localhost
             and every call shows up in the canvas - no code instrumentation, no
             decorators.
           </p>
@@ -967,7 +967,7 @@ export default function LoomLanding() {
             <h4>Inspect &amp; replay</h4>
             <p>Open the canvas, click a node, rewrite its output, and replay the chain to test the fix.</p>
             <div className="codebox">
-              <span className="cm"># in Loom</span>
+              <span className="cm"># in Tether</span>
               <br />
               <span className="kw">opt+cmd+R</span> <span className="cm">replay from node</span>
               <br />
@@ -985,28 +985,28 @@ export default function LoomLanding() {
         <div className="faq-list">
           {[
             {
-              q: "How does Loom intercept LLM calls without changing my code?",
-              a: "Loom runs a local HTTP proxy on your machine. You point your AI client's base_url at http://localhost:8080/v1 — that's the only change. Loom transparently forwards every request to the real provider and records the full request/response pair locally.",
+              q: "How does Tether intercept LLM calls without changing my code?",
+              a: "Tether runs a local HTTP proxy on your machine. You point your AI client's base_url at http://localhost:8080/v1 — that's the only change. Tether transparently forwards every request to the real provider and records the full request/response pair locally.",
             },
             {
-              q: "Does Loom send my prompts or API keys anywhere?",
-              a: "No. Loom is fully air-gapped. Your prompts, responses, and API keys never leave your Mac. API keys are stored encrypted in the macOS Keychain and are never written to disk in plain text.",
+              q: "Does Tether send my prompts or API keys anywhere?",
+              a: "No. Tether is fully air-gapped. Your prompts, responses, and API keys never leave your Mac. API keys are stored encrypted in the macOS Keychain and are never written to disk in plain text.",
             },
             {
-              q: "Which LLM providers and frameworks does Loom support?",
-              a: "Loom supports OpenAI, Anthropic (Claude), Ollama, LM Studio, and any provider that accepts an OpenAI-compatible base_url. It works with LangChain, LangGraph, LlamaIndex, and any SDK with a configurable endpoint.",
+              q: "Which LLM providers and frameworks does Tether support?",
+              a: "Tether supports OpenAI, Anthropic (Claude), Ollama, LM Studio, and any provider that accepts an OpenAI-compatible base_url. It works with LangChain, LangGraph, LlamaIndex, and any SDK with a configurable endpoint.",
             },
             {
-              q: "How is Loom different from LangSmith or Weights & Biases?",
-              a: "LangSmith and W&B send your traces to cloud servers. Loom keeps everything on your machine — there is no cloud, no account, and nothing leaves your Mac. It's designed for developers who can't or won't send production prompts to third-party services.",
+              q: "How is Tether different from LangSmith or Weights & Biases?",
+              a: "LangSmith and W&B send your traces to cloud servers. Tether keeps everything on your machine — there is no cloud, no account, and nothing leaves your Mac. It's designed for developers who can't or won't send production prompts to third-party services.",
             },
             {
               q: "What is time-travel mocking?",
               a: "Time-travel mocking lets you click any past node in the agent trace, edit its response JSON, and replay the entire chain from that point forward — without re-running earlier steps or spending tokens. You can test how your agent would behave with a different LLM output in seconds.",
             },
             {
-              q: "Is Loom free?",
-              a: "Yes. Loom is free during the alpha period and the core proxy is open source. No credit card or account required.",
+              q: "Is Tether free?",
+              a: "Yes. Tether is free during the alpha period and the core proxy is open source. No credit card or account required.",
             },
           ].map(({ q, a }) => (
             <details className="faq-item reveal" key={q}>
@@ -1035,6 +1035,7 @@ export default function LoomLanding() {
                 Download DMG
               </a>
             </div>
+            <div className="download-or">or join the waitlist</div>
             <form
               action="/api/waitlist"
               className="waitlist-form"
@@ -1084,7 +1085,7 @@ export default function LoomLanding() {
                   value={waitlistReason}
                   className="waitlist-select"
                 >
-                  <option value="" disabled>Why are you interested in Loom?</option>
+                  <option value="" disabled>Why are you interested in Tether?</option>
                   <option value="Debugging AI agent behavior">Debugging AI agent behavior</option>
                   <option value="Monitoring LLM API costs">Monitoring LLM API costs</option>
                   <option value="Replaying and mocking responses">Replaying and mocking responses</option>

@@ -6,8 +6,55 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C0D300000000000000000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000001 /* ContentView.swift */; };
+		C0D300000000000000000002 /* AgentTracePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000002 /* AgentTracePalette.swift */; };
+		C0D300000000000000000003 /* AgentTraceThemeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000003 /* AgentTraceThemeMode.swift */; };
+		C0D300000000000000000004 /* TraceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000004 /* TraceModels.swift */; };
+		C0D300000000000000000005 /* GraphPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000005 /* GraphPane.swift */; };
+		C0D300000000000000000006 /* InspectorPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000006 /* InspectorPane.swift */; };
+		C0D300000000000000000007 /* MainThreePaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000007 /* MainThreePaneLayoutView.swift */; };
+		C0D300000000000000000008 /* TraceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000008 /* TraceStore.swift */; };
+		C0D300000000000000000009 /* AgentTraceMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000009 /* AgentTraceMenuCommands.swift */; };
+		C0D30000000000000000000A /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D40000000000000000000A /* AppSettingsView.swift */; };
+		C0D30000000000000000000B /* TitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D40000000000000000000B /* TitleBar.swift */; };
+		C0D30000000000000000000C /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D40000000000000000000C /* Sidebar.swift */; };
+		C0D30000000000000000000D /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D40000000000000000000D /* WelcomeView.swift */; };
+		C0D30000000000000000000E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D40000000000000000000E /* Item.swift */; };
+		C0D30000000000000000000F /* LoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D40000000000000000000F /* LoomApp.swift */; };
+		C0D300000000000000000010 /* CodexLogObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000010 /* CodexLogObserver.swift */; };
+		C0D300000000000000000011 /* LocalProxyLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000011 /* LocalProxyLauncher.swift */; };
+		C0D300000000000000000012 /* ProxySettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000012 /* ProxySettingsStore.swift */; };
+		C0D300000000000000000013 /* TraceAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000013 /* TraceAPIClient.swift */; };
+		C0D300000000000000000014 /* TraceSharedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000014 /* TraceSharedViews.swift */; };
+		C0D300000000000000000015 /* WindowChromeHider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000015 /* WindowChromeHider.swift */; };
+		C0D300000000000000000016 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0D400000000000000000016 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		13B6D8F92FCAC593004EDF4E /* Loom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Loom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B6D8F92FCAC593004EDF4E /* Tether.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tether.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0D400000000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/ContentView.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000002 /* AgentTracePalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/DesignSystem/AgentTracePalette.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000003 /* AgentTraceThemeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/DesignSystem/AgentTraceThemeMode.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000004 /* TraceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Domain/TraceModels.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000005 /* GraphPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/Graph/GraphPane.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000006 /* InspectorPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/Inspector/InspectorPane.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000007 /* MainThreePaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/MainLayout/MainThreePaneLayoutView.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000008 /* TraceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/MainLayout/TraceStore.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000009 /* AgentTraceMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/Menu/AgentTraceMenuCommands.swift; sourceTree = SOURCE_ROOT; };
+		C0D40000000000000000000A /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/Settings/AppSettingsView.swift; sourceTree = SOURCE_ROOT; };
+		C0D40000000000000000000B /* TitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/Shell/TitleBar.swift; sourceTree = SOURCE_ROOT; };
+		C0D40000000000000000000C /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/Sidebar/Sidebar.swift; sourceTree = SOURCE_ROOT; };
+		C0D40000000000000000000D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Features/Welcome/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
+		C0D40000000000000000000E /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Item.swift; sourceTree = SOURCE_ROOT; };
+		C0D40000000000000000000F /* LoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/LoomApp.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000010 /* CodexLogObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Services/CodexLogObserver.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000011 /* LocalProxyLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Services/LocalProxyLauncher.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000012 /* ProxySettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Services/ProxySettingsStore.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000013 /* TraceAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Services/TraceAPIClient.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000014 /* TraceSharedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Shared/TraceSharedViews.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000015 /* WindowChromeHider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loom/Shared/WindowChromeHider.swift; sourceTree = SOURCE_ROOT; };
+		C0D400000000000000000016 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Loom/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +87,7 @@
 		13B6D8FA2FCAC593004EDF4E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B6D8F92FCAC593004EDF4E /* Loom.app */,
+				13B6D8F92FCAC593004EDF4E /* Tether.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B6D8F82FCAC593004EDF4E /* Loom */ = {
+		13B6D8F82FCAC593004EDF4E /* Tether */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B6D9062FCAC594004EDF4E /* Build configuration list for PBXNativeTarget "Loom" */;
+			buildConfigurationList = 13B6D9062FCAC594004EDF4E /* Build configuration list for PBXNativeTarget "Tether" */;
 			buildPhases = (
 				13B6D8F52FCAC593004EDF4E /* Sources */,
 				13B6D8F62FCAC593004EDF4E /* Frameworks */,
@@ -60,14 +107,11 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				13B6D8FB2FCAC593004EDF4E /* Loom */,
-			);
-			name = Loom;
+			name = Tether;
 			packageProductDependencies = (
 			);
-			productName = Loom;
-			productReference = 13B6D8F92FCAC593004EDF4E /* Loom.app */;
+			productName = Tether;
+			productReference = 13B6D8F92FCAC593004EDF4E /* Tether.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +129,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 13B6D8F42FCAC593004EDF4E /* Build configuration list for PBXProject "Loom" */;
+			buildConfigurationList = 13B6D8F42FCAC593004EDF4E /* Build configuration list for PBXProject "Tether" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +143,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B6D8F82FCAC593004EDF4E /* Loom */,
+				13B6D8F82FCAC593004EDF4E /* Tether */,
 			);
 		};
 /* End PBXProject section */
@@ -109,6 +153,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0D300000000000000000016 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +164,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0D30000000000000000000A /* AppSettingsView.swift in Sources */,
+				C0D300000000000000000009 /* AgentTraceMenuCommands.swift in Sources */,
+				C0D300000000000000000002 /* AgentTracePalette.swift in Sources */,
+				C0D300000000000000000003 /* AgentTraceThemeMode.swift in Sources */,
+				C0D300000000000000000010 /* CodexLogObserver.swift in Sources */,
+				C0D300000000000000000001 /* ContentView.swift in Sources */,
+				C0D300000000000000000005 /* GraphPane.swift in Sources */,
+				C0D300000000000000000006 /* InspectorPane.swift in Sources */,
+				C0D30000000000000000000E /* Item.swift in Sources */,
+				C0D300000000000000000011 /* LocalProxyLauncher.swift in Sources */,
+				C0D30000000000000000000F /* LoomApp.swift in Sources */,
+				C0D300000000000000000007 /* MainThreePaneLayoutView.swift in Sources */,
+				C0D300000000000000000012 /* ProxySettingsStore.swift in Sources */,
+				C0D30000000000000000000C /* Sidebar.swift in Sources */,
+				C0D30000000000000000000B /* TitleBar.swift in Sources */,
+				C0D300000000000000000013 /* TraceAPIClient.swift in Sources */,
+				C0D300000000000000000008 /* TraceStore.swift in Sources */,
+				C0D300000000000000000004 /* TraceModels.swift in Sources */,
+				C0D300000000000000000014 /* TraceSharedViews.swift in Sources */,
+				C0D30000000000000000000D /* WelcomeView.swift in Sources */,
+				C0D300000000000000000015 /* WindowChromeHider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +331,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yaroslavfairfieldd.Loom;
+				PRODUCT_BUNDLE_IDENTIFIER = yaroslavfairfieldd.Tether;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -297,7 +363,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = yaroslavfairfieldd.Loom;
+				PRODUCT_BUNDLE_IDENTIFIER = yaroslavfairfieldd.Tether;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -312,7 +378,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B6D8F42FCAC593004EDF4E /* Build configuration list for PBXProject "Loom" */ = {
+		13B6D8F42FCAC593004EDF4E /* Build configuration list for PBXProject "Tether" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B6D9042FCAC594004EDF4E /* Debug */,
@@ -321,7 +387,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B6D9062FCAC594004EDF4E /* Build configuration list for PBXNativeTarget "Loom" */ = {
+		13B6D9062FCAC594004EDF4E /* Build configuration list for PBXNativeTarget "Tether" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B6D9072FCAC594004EDF4E /* Debug */,

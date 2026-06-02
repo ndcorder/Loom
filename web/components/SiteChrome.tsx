@@ -14,7 +14,7 @@ const DEVELOPER_LINKS = [
   { label: "Documentation", href: "/documentation" },
   { label: "CLI reference", href: "/cli-reference" },
   { label: "Changelog", href: "/changelog" },
-  { label: "GitHub", href: "https://github.com/Hqzdev/Loom", external: true },
+  { label: "GitHub", href: "https://github.com/Hqzdev/Tether", external: true },
 ];
 
 const COMPANY_LINKS = [
@@ -25,20 +25,14 @@ const COMPANY_LINKS = [
 
 function LogoMark() {
   return (
-    <svg
+    <img
+      alt=""
       aria-hidden="true"
-      className="ic"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.7"
-      viewBox="0 0 24 24"
-    >
-      <rect height="8" rx="2" width="8" x="3" y="3" />
-      <rect height="8" rx="2" width="8" x="13" y="13" />
-      <path d="M7 11v3a2 2 0 0 0 2 2h4" />
-    </svg>
+      decoding="async"
+      height="28"
+      src="/Tether.PNG"
+      width="28"
+    />
   );
 }
 
@@ -105,7 +99,7 @@ export function SiteHeader() {
           <span className="logo">
             <LogoMark />
           </span>
-          Loom
+          Tether
         </Link>
         <div className="nav-links">
           <Link href="/features">Features</Link>
@@ -114,7 +108,7 @@ export function SiteHeader() {
           <Link href="/download">Download</Link>
         </div>
         <div className="nav-right">
-          <Link className="gh-pill" href="/download" aria-label="Get the Loom alpha build">
+          <Link className="gh-pill" href="/download" aria-label="Get the Tether alpha build">
             <CircleIcon />
             Alpha build
           </Link>
@@ -137,7 +131,7 @@ export function SiteFooter() {
             <span className="logo">
               <LogoMark />
             </span>
-            Loom
+            Tether
           </Link>
           <p>
             Local-first observability and mocking for LLM agents. Built for developers who refuse to debug in
@@ -175,7 +169,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="foot-bottom">
-        <span>&copy; 2026 Loom - Crafted for the Mac</span>
+        <span>&copy; 2026 Tether - Crafted for the Mac</span>
         <span>
           <ArrowIcon /> All systems local
         </span>

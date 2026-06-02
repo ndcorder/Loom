@@ -57,8 +57,8 @@ final class LocalProxyLauncher {
             .deletingLastPathComponent()
 
         let candidates = [
-            repoRoot.appendingPathComponent("proxy/target/debug/loom-proxy"),
-            Bundle.main.bundleURL.appendingPathComponent("Contents/Helpers/loom-proxy")
+            repoRoot.appendingPathComponent("proxy/target/debug/Tether-proxy"),
+            Bundle.main.bundleURL.appendingPathComponent("Contents/Helpers/Tether-proxy")
         ]
 
         return candidates.first { FileManager.default.isExecutableFile(atPath: $0.path) }
@@ -67,12 +67,12 @@ final class LocalProxyLauncher {
     private func proxyEnvironment() -> [String: String] {
         var environment = ProcessInfo.processInfo.environment
         let settings = ProxySettingsStore.current
-        environment["LOOM_ADDR"] = settings.listenAddress
-        environment["LOOM_CACHE"] = settings.localCacheEnabled ? "on" : "off"
+        environment["Tether_ADDR"] = settings.listenAddress
+        environment["Tether_CACHE"] = settings.localCacheEnabled ? "on" : "off"
         environment["OPENAI_UPSTREAM"] = settings.openAIUpstreamURL
         environment["ANTHROPIC_UPSTREAM"] = settings.anthropicUpstreamURL
-        environment["LOOM_DB"] = appSupportDirectory()
-            .appendingPathComponent("loom-cache.sqlite")
+        environment["Tether_DB"] = appSupportDirectory()
+            .appendingPathComponent("Tether-cache.sqlite")
             .path
         return environment
     }

@@ -1,4 +1,4 @@
-// Loom mock session data (ported from the example app's data.jsx)
+// Tether mock session data (ported from the example app's data.jsx)
 import type { IconName } from "@/components/Icon";
 
 export type NodeStatus = "success" | "cached" | "error";

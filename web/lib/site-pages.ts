@@ -20,18 +20,18 @@ export const SITE_PAGES: SitePage[] = [
     title: "Product",
     eyebrow: "Local-first agent observability",
     description:
-      "Loom gives AI builders a single Mac-native workspace for tracing, inspecting, caching, and replaying LLM calls.",
+      "Tether gives AI builders a single Mac-native workspace for tracing, inspecting, caching, and replaying LLM calls.",
     sections: [
       {
         title: "Built around the real shape of agent work",
         body:
-          "Agent runs are not linear logs. They branch, retry, call tools, hit caches, fail in strange places, and recover in ways that are hard to see from a terminal. Loom turns those runs into a readable product surface.",
+          "Agent runs are not linear logs. They branch, retry, call tools, hit caches, fail in strange places, and recover in ways that are hard to see from a terminal. Tether turns those runs into a readable product surface.",
         bullets: ["Visual call trees", "Provider metadata", "Prompt and response inspection", "Replay-ready traces"],
       },
       {
         title: "Private by default",
         body:
-          "The product is designed for sensitive workflows where prompts, customer data, and API keys should stay local. Loom keeps traces on your machine and puts secrets in macOS Keychain.",
+          "The product is designed for sensitive workflows where prompts, customer data, and API keys should stay local. Tether keeps traces on your machine and puts secrets in macOS Keychain.",
       },
     ],
     cta: { label: "Download the alpha", href: "/download" },
@@ -46,7 +46,7 @@ export const SITE_PAGES: SitePage[] = [
       {
         title: "Trace capture",
         body:
-          "Route OpenAI-compatible calls through the local proxy and see every request become a structured node in the Loom interface.",
+          "Route OpenAI-compatible calls through the local proxy and see every request become a structured node in the Tether interface.",
         bullets: ["Request and response bodies", "Latency and status", "Model metadata", "Nested tool-call context"],
       },
       {
@@ -84,12 +84,12 @@ export const SITE_PAGES: SitePage[] = [
     title: "How it works",
     eyebrow: "One proxy, full visibility",
     description:
-      "Loom runs a local HTTP proxy. Point your SDK at localhost, run your agent, and inspect the trace.",
+      "Tether runs a local HTTP proxy. Point your SDK at localhost, run your agent, and inspect the trace.",
     sections: [
       {
-        title: "1. Route calls through Loom",
+        title: "1. Route calls through Tether",
         body:
-          "Change the SDK base URL to the local Loom endpoint. Your application keeps using the same request shape.",
+          "Change the SDK base URL to the local Tether endpoint. Your application keeps using the same request shape.",
       },
       {
         title: "2. Capture the run",
@@ -114,7 +114,7 @@ export const SITE_PAGES: SitePage[] = [
       {
         title: "macOS-first",
         body:
-          "Loom is crafted for local development on the Mac, with Keychain-aware secrets, a native-feeling interface, and local trace storage.",
+          "Tether is crafted for local development on the Mac, with Keychain-aware secrets, a native-feeling interface, and local trace storage.",
         bullets: ["macOS 13+", "Local proxy included", "No account required for local tracing", "Free during alpha"],
       },
       {
@@ -130,12 +130,12 @@ export const SITE_PAGES: SitePage[] = [
     title: "Developers",
     eyebrow: "For people shipping agent systems",
     description:
-      "Loom is designed for engineers building AI products, internal tools, copilots, autonomous workflows, and agent infrastructure.",
+      "Tether is designed for engineers building AI products, internal tools, copilots, autonomous workflows, and agent infrastructure.",
     sections: [
       {
         title: "Use it with your existing stack",
         body:
-          "Keep your SDKs, models, and frameworks. Loom sits in front of provider calls and gives you a better debugging surface.",
+          "Keep your SDKs, models, and frameworks. Tether sits in front of provider calls and gives you a better debugging surface.",
         bullets: ["OpenAI-compatible clients", "LangChain", "LangGraph", "LlamaIndex", "Ollama and LM Studio"],
       },
       {
@@ -151,12 +151,12 @@ export const SITE_PAGES: SitePage[] = [
     title: "Documentation",
     eyebrow: "Setup and operating guide",
     description:
-      "A practical guide to installing Loom, routing provider calls, reading traces, using cache, and replaying responses.",
+      "A practical guide to installing Tether, routing provider calls, reading traces, using cache, and replaying responses.",
     sections: [
       {
         title: "Quick setup",
         body:
-          "Install dependencies, start the web app, run the local proxy, then point your SDK base URL at Loom.",
+          "Install dependencies, start the web app, run the local proxy, then point your SDK base URL at Tether.",
         bullets: ["Clone the repo", "Run npm install", "Start the web app", "Configure the local proxy"],
       },
       {
@@ -165,7 +165,7 @@ export const SITE_PAGES: SitePage[] = [
           "Documentation will cover trace nodes, cache hits, replay boundaries, provider adapters, and local storage.",
       },
     ],
-    cta: { label: "Open GitHub", href: "https://github.com/Hqzdev/Loom" },
+    cta: { label: "Open GitHub", href: "https://github.com/Hqzdev/Tether" },
   },
   {
     slug: "cli-reference",
@@ -193,7 +193,7 @@ export const SITE_PAGES: SitePage[] = [
     title: "Changelog",
     eyebrow: "Product progress",
     description:
-      "A running record of Loom releases, proxy improvements, UI updates, and developer workflow changes.",
+      "A running record of Tether releases, proxy improvements, UI updates, and developer workflow changes.",
     sections: [
       {
         title: "Current alpha",
@@ -214,7 +214,7 @@ export const SITE_PAGES: SitePage[] = [
     title: "Company",
     eyebrow: "Built by Hqz.dev",
     description:
-      "Loom is created for developers who need AI systems to feel inspectable, reliable, and worthy of user trust.",
+      "Tether is created for developers who need AI systems to feel inspectable, reliable, and worthy of user trust.",
     sections: [
       {
         title: "Our belief",
@@ -234,7 +234,7 @@ export const SITE_PAGES: SitePage[] = [
     title: "Privacy",
     eyebrow: "Local-first by design",
     description:
-      "Loom is built around the principle that prompts, responses, traces, and API keys should stay close to the developer.",
+      "Tether is built around the principle that prompts, responses, traces, and API keys should stay close to the developer.",
     sections: [
       {
         title: "Local trace storage",
@@ -254,7 +254,7 @@ export const SITE_PAGES: SitePage[] = [
     title: "Security",
     eyebrow: "Trust starts at the machine",
     description:
-      "Loom reduces debugging risk by keeping the observability loop local, explicit, and inspectable.",
+      "Tether reduces debugging risk by keeping the observability loop local, explicit, and inspectable.",
     sections: [
       {
         title: "No hidden telemetry promise",
@@ -264,7 +264,7 @@ export const SITE_PAGES: SitePage[] = [
       {
         title: "Provider boundaries",
         body:
-          "Requests are forwarded only to the providers you configure. Loom should be a debugging layer, not another place where secrets drift.",
+          "Requests are forwarded only to the providers you configure. Tether should be a debugging layer, not another place where secrets drift.",
       },
     ],
     cta: { label: "Contact security", href: "/contact" },
@@ -287,7 +287,7 @@ export const SITE_PAGES: SitePage[] = [
           "For now, GitHub is the best place to open issues, track changes, and follow the product as it moves toward a public alpha.",
       },
     ],
-    cta: { label: "Open GitHub", href: "https://github.com/Hqzdev/Loom" },
+    cta: { label: "Open GitHub", href: "https://github.com/Hqzdev/Tether" },
   },
 ];
 
