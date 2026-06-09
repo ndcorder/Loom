@@ -2,8 +2,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_NAME="${LOOM_APP_NAME:-Loom}"
-DMG_NAME="${LOOM_DMG_NAME:-Loom.dmg}"
+SCHEME_NAME="${LOOM_SCHEME_NAME:-Tether}"
+APP_NAME="${LOOM_APP_NAME:-Tether}"
+DMG_NAME="${LOOM_DMG_NAME:-Tether.dmg}"
 DIST_DIR="$ROOT/dist"
 BUILD_DIR="$DIST_DIR/build"
 STAGE_DIR="$BUILD_DIR/dmg-stage"
@@ -32,7 +33,7 @@ cargo build --manifest-path "$ROOT/proxy/Cargo.toml" --release
 echo "==> Building macOS app"
 xcodebuild \
   -project "$ROOT/ui/Loom.xcodeproj" \
-  -scheme "$APP_NAME" \
+  -scheme "$SCHEME_NAME" \
   -configuration Release \
   -destination "generic/platform=macOS" \
   -derivedDataPath "$DERIVED_DATA" \
