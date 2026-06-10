@@ -7,7 +7,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { trackEvent } from "@/lib/analytics";
 import { NODES, type NodeStatus, type TraceNode } from "@/lib/data";
 
-const DOWNLOAD_HREF = "/downloads/Tether.dmg";
+const DOWNLOAD_HREF = "https://github.com/Hqzdev/Loom/releases/tag/v1.0";
 
 type LandingIconName = IconName;
 
@@ -1011,13 +1011,14 @@ export default function TetherLanding() {
               <a
                 className="btn btn-primary pulse"
                 href={DOWNLOAD_HREF}
-                download
                 onClick={() =>
                   trackEvent("download_clicked", {
-                    asset: "Tether.dmg",
+                    asset: "Loom v1.0 release",
                     location: "final_cta",
                   })
                 }
+                rel="noreferrer"
+                target="_blank"
               >
                 <LandingIcon name="apple" />
                 Download DMG
