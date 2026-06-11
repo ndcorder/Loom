@@ -98,6 +98,7 @@ private struct SidebarSectionHeader: View {
         }
         .textCase(nil)
         .foregroundStyle(.secondary)
+        .fontDesign(.monospaced)
         .padding(.leading, 18)
         .padding(.trailing, 14)
         .padding(.top, 10)
@@ -150,7 +151,7 @@ private struct SessionRow: View {
             .frame(maxWidth: .infinity)
             .liquidGlass(
                 palette: palette,
-                cornerRadius: 8,
+                cornerRadius: palette.controlRadius,
                 tint: selected ? palette.accent.opacity(0.16) : palette.glassTint.opacity(0.08),
                 interactive: true,
                 strokeOpacity: selected ? 0.82 : 0.32

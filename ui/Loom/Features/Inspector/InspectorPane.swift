@@ -35,9 +35,9 @@ struct InspectorPane: View {
                             .padding(.horizontal, 7)
                             .padding(.vertical, 2)
                             .background(palette.violet.opacity(0.07))
-                            .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                            .clipShape(Capsule())
                             .overlay(
-                                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                Capsule()
                                     .stroke(palette.violetBorder, lineWidth: 1)
                             )
                     } else {
@@ -246,9 +246,9 @@ private struct EditorToolbar: View {
                     .padding(.horizontal, 7)
                     .padding(.vertical, 2)
                     .background(chip == "200 OK" ? palette.greenBackground : chip == "LIVE" ? palette.amber.opacity(0.10) : palette.panel)
-                    .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    .clipShape(Capsule())
                     .overlay(
-                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        Capsule()
                             .stroke(chip == "200 OK" ? palette.greenDim : chip == "LIVE" ? palette.amber.opacity(0.36) : palette.border, lineWidth: 1)
                     )
             }
@@ -354,10 +354,10 @@ private struct CodeLineView: View {
                         .padding(.vertical, 2)
                         .background(labelAccent.opacity(0.14))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                            Capsule()
                                 .stroke(labelAccent.opacity(0.32), lineWidth: 1)
                         )
-                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                        .clipShape(Capsule())
 
                     Rectangle()
                         .fill(labelAccent.opacity(0.18))
@@ -520,15 +520,15 @@ private struct TimeTravelButtonStyle: ButtonStyle {
                 LinearGradient(
                     colors: active
                         ? [Color(hex: 0xffd27a), Color(hex: 0xf5b94f)]
-                        : [Color(hex: 0x6fb0ff), Color(hex: 0x4f93f5)],
-                    startPoint: .top,
-                    endPoint: .bottom
+                        : [palette.accent, palette.accentTwo, palette.accentThree],
+                    startPoint: .leading,
+                    endPoint: .trailing
                 )
             )
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .clipShape(Capsule())
             .overlay(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(active ? Color(hex: 0xe0a23f) : Color(hex: 0x3f7fe0), lineWidth: 1)
+                Capsule()
+                    .stroke(active ? Color(hex: 0xe0a23f) : palette.accent.opacity(0.22), lineWidth: 1)
             )
             .opacity(configuration.isPressed ? 0.86 : 1)
     }

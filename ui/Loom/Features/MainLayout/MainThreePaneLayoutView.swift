@@ -7,9 +7,6 @@ import UI
 import UniformTypeIdentifiers
 
 struct MainThreePaneLayoutView: View {
-    @Environment(\.colorScheme) private var systemColorScheme
-    @AppStorage("agenttrace.themeMode") private var themeModeRaw = AgentTraceThemeMode.system.rawValue
-
     @StateObject private var traceStore = TraceStore()
     @State private var selectedNodeId: AgentNode.ID?
     @State private var inspectorTab: InspectorTab = .prompt
@@ -19,12 +16,8 @@ struct MainThreePaneLayoutView: View {
     @State private var showingClearConfirmation = false
     @State private var showingConnectionHelp = false
 
-    private var themeMode: AgentTraceThemeMode {
-        AgentTraceThemeMode(rawValue: themeModeRaw) ?? .system
-    }
-
     private var palette: AgentTracePalette {
-        AgentTracePalette(light: themeMode.isLight(systemColorScheme: systemColorScheme))
+        AgentTracePalette(light: true)
     }
 
     private var session: TraceSession? {
@@ -72,13 +65,31 @@ struct MainThreePaneLayoutView: View {
                     )
 
                     workspace(layout: layout, size: geometry.size)
+                        .clipShape(RoundedRectangle(cornerRadius: layout.mode == .compact ? 20 : palette.paperRadius, style: .continuous))
+                        .background(
+                            RoundedRectangle(cornerRadius: layout.mode == .compact ? 20 : palette.paperRadius, style: .continuous)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [palette.paperTop, palette.paperBottom],
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
+                                )
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: layout.mode == .compact ? 20 : palette.paperRadius, style: .continuous)
+                                .stroke(palette.border.opacity(0.92), lineWidth: 1)
+                        )
+                        .shadow(color: Color(hex: 0x0f172a).opacity(0.07), radius: 28, x: 0, y: 18)
+                        .padding(.horizontal, layout.mode == .compact ? 8 : 14)
+                        .padding(.bottom, layout.mode == .compact ? 8 : 14)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(palette.window.opacity(0.62))
             }
         }
         .ignoresSafeArea()
+        .preferredColorScheme(.light)
         .frame(minWidth: 800, minHeight: 520)
         .onAppear {
             _ = LocalProxyLauncher.shared.startIfAvailable()
@@ -287,7 +298,7 @@ struct MainThreePaneLayoutView: View {
         let snapshot = TraceSnapshot(session: session, nodes: nodes)
         let panel = NSSavePanel()
         panel.title = "Export Traces"
-        panel.nameFieldStringValue = "AgentTrace-\(exportTimestamp()).json"
+        panel.nameFieldStringValue = "Tether-\(exportTimestamp()).json"
         panel.allowedContentTypes = [.json, .commaSeparatedText]
         panel.canCreateDirectories = true
 
@@ -417,52 +428,69 @@ private struct CompactSectionPicker: View {
         .labelsHidden()
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(palette.panelSecondary.opacity(0.56))
+        .background(palette.panelSecondary.opacity(0.70))
     }
 }
 
 private struct ConnectionHelpSheet: View {
     @Environment(\.dismiss) private var dismiss
+    private let palette = AgentTracePalette(light: true)
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            HStack(spacing: 16) {
-                Image(systemName: "terminal")
-                    .font(.largeTitle)
-                    .symbolRenderingMode(.hierarchical)
-                    .foregroundStyle(.tint)
-                    .frame(width: 48, height: 48)
+        ZStack {
+            StageBackground(palette: palette)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("How to Connect an Agent")
+            VStack(alignment: .leading, spacing: 24) {
+                HStack(spacing: 16) {
+                    Image(systemName: "terminal")
                         .font(.title)
-                        .fontWeight(.semibold)
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundStyle(palette.accent)
+                        .frame(width: 48, height: 48)
+                        .background(palette.accentBackground)
+                        .clipShape(Capsule())
+                        .overlay(Capsule().stroke(palette.accent.opacity(0.18), lineWidth: 1))
 
-                    Text("AgentTrace watches local Codex sessions and proxy traffic on this Mac.")
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("How to Connect an Agent")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(palette.text)
+
+                        Text("Tether watches local Codex sessions and proxy traffic on this Mac.")
+                            .font(.callout)
+                            .foregroundStyle(palette.textTertiary)
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: 12) {
+                    HelpRow(systemImage: "1.circle", title: "Open Terminal", detail: "Run codex from any terminal session.", palette: palette)
+                    HelpRow(systemImage: "2.circle", title: "Keep Tether Open", detail: "The workspace updates as new agent calls arrive.", palette: palette)
+                    HelpRow(systemImage: "3.circle", title: "Use Proxy Settings", detail: "Configure port, upstream URLs, and cache from Settings.", palette: palette)
+                }
+
+                HStack {
+                    Spacer()
+
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                            .frame(width: 112, height: 38)
+                    }
+                    .buttonStyle(HelpPrimaryButtonStyle(palette: palette))
                 }
             }
-
-            VStack(alignment: .leading, spacing: 12) {
-                HelpRow(systemImage: "1.circle", title: "Open Terminal", detail: "Run codex from any terminal session.")
-                HelpRow(systemImage: "2.circle", title: "Keep AgentTrace Open", detail: "The workspace updates as new agent calls arrive.")
-                HelpRow(systemImage: "3.circle", title: "Use Proxy Settings", detail: "Configure port, upstream URLs, and cache from Settings.")
-            }
-
-            HStack {
-                Spacer()
-
-                Button("Done") {
-                    dismiss()
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-            }
+            .padding(24)
+            .background(Color.white.opacity(0.88), in: RoundedRectangle(cornerRadius: palette.paperRadius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: palette.paperRadius, style: .continuous)
+                    .stroke(palette.border, lineWidth: 1)
+            )
+            .padding(12)
         }
-        .padding(24)
         .frame(width: 480)
-        .background(.windowBackground)
+        .preferredColorScheme(.light)
     }
 }
 
@@ -470,22 +498,37 @@ private struct HelpRow: View {
     let systemImage: String
     let title: String
     let detail: String
+    let palette: AgentTracePalette
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: systemImage)
-                .foregroundStyle(.tint)
+                .foregroundStyle(palette.accent)
                 .frame(width: 22)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.headline)
+                    .foregroundStyle(palette.text)
 
                 Text(detail)
                     .font(.callout)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(palette.textTertiary)
             }
         }
+    }
+}
+
+private struct HelpPrimaryButtonStyle: ButtonStyle {
+    let palette: AgentTracePalette
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 13, weight: .semibold))
+            .foregroundStyle(.white)
+            .background(palette.text)
+            .clipShape(Capsule())
+            .opacity(configuration.isPressed ? 0.86 : 1)
     }
 }
 

@@ -1,6 +1,7 @@
 import AppKit
 import Networking
 import SwiftUI
+import UI
 
 struct AppSettingsView: View {
     var body: some View {
@@ -11,10 +12,13 @@ struct AppSettingsView: View {
                 }
         }
         .frame(width: 480)
+        .preferredColorScheme(.light)
     }
 }
 
 private struct ProxySettingsView: View {
+    private let palette = AgentTracePalette(light: true)
+
     @State private var portText = String(ProxySettingsStore.current.port)
     @State private var openAIUpstreamURL = ProxySettingsStore.current.openAIUpstreamURL
     @State private var anthropicUpstreamURL = ProxySettingsStore.current.anthropicUpstreamURL
@@ -25,33 +29,33 @@ private struct ProxySettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 16) {
-                SettingsSection("Listen") {
-                    SettingsRow("Port") {
+                SettingsSection("Listen", palette: palette) {
+                    SettingsRow("Port", palette: palette) {
                         TextField("", text: $portText)
-                            .textFieldStyle(.roundedBorder)
+                            .settingsField(palette: palette)
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)
                     }
                 }
 
-                SettingsSection("Upstream URLs") {
-                    SettingsRow("OpenAI") {
+                SettingsSection("Upstream URLs", palette: palette) {
+                    SettingsRow("OpenAI", palette: palette) {
                         TextField("", text: $openAIUpstreamURL)
-                            .textFieldStyle(.roundedBorder)
+                            .settingsField(palette: palette)
                             .frame(maxWidth: 300)
                     }
 
-                    SettingsRow("Anthropic") {
+                    SettingsRow("Anthropic", palette: palette) {
                         TextField("", text: $anthropicUpstreamURL)
-                            .textFieldStyle(.roundedBorder)
+                            .settingsField(palette: palette)
                             .frame(maxWidth: 300)
                     }
                 }
 
-                SettingsSection("Cache") {
+                SettingsSection("Cache", palette: palette) {
                     HStack {
                         Text("Enable local cache")
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(palette.text)
 
                         Spacer(minLength: 16)
 
@@ -59,11 +63,13 @@ private struct ProxySettingsView: View {
                             .labelsHidden()
                     }
 
-                    Button("Clear Cache") {
+                    Button {
                         clearCache()
+                    } label: {
+                        Label("Clear Cache", systemImage: "trash")
+                            .frame(height: 30)
                     }
-                    .buttonStyle(.borderless)
-                    .foregroundStyle(.red)
+                    .buttonStyle(SettingsSecondaryButtonStyle(palette: palette, destructive: true))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
@@ -72,27 +78,31 @@ private struct ProxySettingsView: View {
 
             Spacer(minLength: 0)
 
-            Divider()
+            HorizontalDividerLine(palette: palette)
 
             HStack(spacing: 12) {
                 Spacer(minLength: 0)
 
                 Text(footerMessage)
                     .font(.caption)
-                    .foregroundStyle(footerMessageIsError ? .red : .secondary)
+                    .foregroundStyle(footerMessageIsError ? palette.pinkText : palette.textTertiary)
 
-                Button("Save & Restart") {
+                Button {
                     saveAndRestart()
+                } label: {
+                    Text("Save & Restart")
+                        .frame(width: 132, height: 34)
                 }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.regular)
+                .buttonStyle(SettingsPrimaryButtonStyle(palette: palette))
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 16)
-            .background(.windowBackground)
+            .background(palette.panelSecondary.opacity(0.72))
         }
         .frame(width: 480, height: 360)
-        .background(.windowBackground)
+        .background {
+            StageBackground(palette: palette)
+        }
     }
 
     private func saveAndRestart() {
@@ -154,46 +164,107 @@ private struct ProxySettingsView: View {
 
 private struct SettingsSection<Content: View>: View {
     private let title: String
+    private let palette: AgentTracePalette
     private let content: Content
 
-    init(_ title: String, @ViewBuilder content: () -> Content) {
+    init(_ title: String, palette: AgentTracePalette, @ViewBuilder content: () -> Content) {
         self.title = title
+        self.palette = palette
         self.content = content()
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.headline)
+                .font(.system(size: 12, weight: .semibold, design: .monospaced))
                 .fontWeight(.semibold)
+                .foregroundStyle(palette.textTertiary)
 
             VStack(spacing: 10) {
                 content
             }
             .padding(16)
-            .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .background(Color.white.opacity(0.78), in: RoundedRectangle(cornerRadius: palette.panelRadius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: palette.panelRadius, style: .continuous)
+                    .stroke(palette.borderSoft, lineWidth: 1)
+            )
         }
     }
 }
 
 private struct SettingsRow<Content: View>: View {
     private let title: String
+    private let palette: AgentTracePalette
     private let content: Content
 
-    init(_ title: String, @ViewBuilder content: () -> Content) {
+    init(_ title: String, palette: AgentTracePalette, @ViewBuilder content: () -> Content) {
         self.title = title
+        self.palette = palette
         self.content = content()
     }
 
     var body: some View {
         HStack(spacing: 16) {
             Text(title)
-                .foregroundStyle(.primary)
+                .foregroundStyle(palette.textSecondary)
                 .frame(width: 88, alignment: .leading)
 
             content
 
             Spacer(minLength: 0)
         }
+    }
+}
+
+private struct SettingsFieldModifier: ViewModifier {
+    let palette: AgentTracePalette
+
+    func body(content: Content) -> some View {
+        content
+            .textFieldStyle(.plain)
+            .font(.system(size: 12.5, design: .monospaced))
+            .foregroundStyle(palette.text)
+            .padding(.horizontal, 10)
+            .frame(height: 30)
+            .background(Color.white.opacity(0.88), in: Capsule())
+            .overlay(Capsule().stroke(palette.border, lineWidth: 1))
+    }
+}
+
+private extension View {
+    func settingsField(palette: AgentTracePalette) -> some View {
+        modifier(SettingsFieldModifier(palette: palette))
+    }
+}
+
+private struct SettingsPrimaryButtonStyle: ButtonStyle {
+    let palette: AgentTracePalette
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 13, weight: .semibold))
+            .foregroundStyle(.white)
+            .background(palette.text)
+            .clipShape(Capsule())
+            .opacity(configuration.isPressed ? 0.86 : 1)
+    }
+}
+
+private struct SettingsSecondaryButtonStyle: ButtonStyle {
+    let palette: AgentTracePalette
+    var destructive = false
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 12, weight: .semibold))
+            .foregroundStyle(destructive ? palette.pinkText : palette.textSecondary)
+            .padding(.horizontal, 12)
+            .background(destructive ? palette.pinkBackground : palette.panelSecondary, in: Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(destructive ? palette.pinkDim : palette.border, lineWidth: 1)
+            )
+            .opacity(configuration.isPressed ? 0.78 : 1)
     }
 }
