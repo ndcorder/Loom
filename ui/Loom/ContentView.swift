@@ -4,11 +4,6 @@ import UI
 
 struct ContentView: View {
     @AppStorage("hasSeenWelcome") private var hasSeenWelcome = false
-    @AppStorage("agenttrace.themeMode") private var themeModeRaw = AgentTraceThemeMode.system.rawValue
-
-    private var themeMode: AgentTraceThemeMode {
-        AgentTraceThemeMode(rawValue: themeModeRaw) ?? .system
-    }
 
     var body: some View {
         Group {
@@ -21,7 +16,7 @@ struct ContentView: View {
             }
         }
         .background(WindowSizeConfigurator(mode: hasSeenWelcome ? .workspace : .welcome))
-        .preferredColorScheme(hasSeenWelcome ? themeMode.preferredColorScheme : .dark)
+        .preferredColorScheme(.light)
         .transition(.opacity)
     }
 }

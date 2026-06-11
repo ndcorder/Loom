@@ -47,7 +47,7 @@ struct Sidebar: View {
                 .frame(height: 46)
                 .liquidGlass(
                     palette: palette,
-                    cornerRadius: 9,
+                    cornerRadius: palette.controlRadius,
                     tint: proxyStatus.backgroundTint(palette),
                     strokeOpacity: 0.84
                 )
@@ -80,7 +80,7 @@ struct Sidebar: View {
                 .padding(.horizontal, 10)
                 .liquidGlass(
                     palette: palette,
-                    cornerRadius: 9,
+                    cornerRadius: palette.controlRadius,
                     tint: palette.glassTint,
                     interactive: true,
                     strokeOpacity: 0.72
@@ -208,6 +208,7 @@ private struct SidebarSectionHeader: View {
         }
         .textCase(nil)
         .foregroundStyle(.secondary)
+        .fontDesign(.monospaced)
         .padding(.leading, 18)
         .padding(.trailing, 14)
         .padding(.top, 10)
@@ -260,7 +261,7 @@ private struct SessionRow: View {
             .frame(maxWidth: .infinity)
             .liquidGlass(
                 palette: palette,
-                cornerRadius: 8,
+                cornerRadius: palette.controlRadius,
                 tint: selected ? palette.accent.opacity(0.16) : palette.glassTint.opacity(0.08),
                 interactive: true,
                 strokeOpacity: selected ? 0.82 : 0.32
@@ -309,9 +310,9 @@ private struct CallRow: View {
                             .padding(.horizontal, 6)
                             .padding(.vertical, 1.5)
                             .background(palette.violet.opacity(0.08))
-                            .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                            .clipShape(Capsule())
                             .overlay(
-                                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                Capsule()
                                     .stroke(palette.violetBorder, lineWidth: 1)
                             )
 
@@ -339,14 +340,14 @@ private struct CallRow: View {
             .background(selected ? palette.active.opacity(0.60) : palette.glassTint.opacity(0.03))
             .liquidGlass(
                 palette: palette,
-                cornerRadius: 8,
+                cornerRadius: palette.controlRadius,
                 tint: selected ? palette.accent.opacity(0.18) : palette.glassTint.opacity(0.08),
                 interactive: true,
                 strokeOpacity: selected ? 0.82 : 0.32
             )
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: palette.controlRadius, style: .continuous))
             .overlay(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                RoundedRectangle(cornerRadius: palette.controlRadius, style: .continuous)
                     .stroke(selected ? palette.borderStrong : Color.clear, lineWidth: 1)
             )
             .overlay(alignment: .leading) {
@@ -378,7 +379,7 @@ private struct SidebarButton: View {
             .foregroundStyle(selected ? palette.text : palette.textSecondary)
             .liquidGlass(
                 palette: palette,
-                cornerRadius: 9,
+                cornerRadius: palette.controlRadius,
                 tint: selected ? palette.accent.opacity(0.16) : palette.glassTint,
                 interactive: true,
                 strokeOpacity: 0.74

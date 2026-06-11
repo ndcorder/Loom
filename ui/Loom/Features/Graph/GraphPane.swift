@@ -151,7 +151,7 @@ private struct MetricBox: View {
         .padding(.horizontal, 12)
         .liquidGlass(
             palette: palette,
-            cornerRadius: 10,
+            cornerRadius: palette.controlRadius,
             tint: palette.glassTint,
             strokeOpacity: 0.84
         )
@@ -200,11 +200,11 @@ private struct ZoomControls: View {
         .frame(height: 40)
         .liquidGlass(
             palette: palette,
-            cornerRadius: 10,
+            cornerRadius: palette.controlRadius,
             tint: palette.panelSecondary.opacity(0.85),
             strokeOpacity: 0.84
         )
-        .shadow(color: .black.opacity(palette.light ? 0.12 : 0.32), radius: 12, x: 0, y: 6)
+        .shadow(color: Color(hex: 0x0f172a).opacity(0.10), radius: 14, x: 0, y: 7)
     }
 
     private func clamped(_ value: CGFloat) -> CGFloat {
@@ -868,7 +868,7 @@ private struct MovableNodeCard: View {
                 y: isDragging ? 10 : 0
             )
             .zIndex(isDragging ? 30 : selected ? 10 : 1)
-            .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: palette.panelRadius, style: .continuous))
             .allowsHitTesting(false)
             .animation(.smooth(duration: 0.12), value: isDragging)
             .animation(.smooth(duration: 0.12), value: selected)
@@ -949,7 +949,7 @@ private struct NodeCard: View {
                 }
             }
         )
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: palette.panelRadius, style: .continuous))
         .overlay(alignment: .leading) {
             RoundedRectangle(cornerRadius: 3, style: .continuous)
                 .fill(palette.color(for: node.status))
@@ -957,17 +957,17 @@ private struct NodeCard: View {
                 .padding(.vertical, 10)
         }
         .overlay(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: palette.panelRadius, style: .continuous)
                 .stroke(
                     selected ? palette.accent : palette.borderStrong,
                     lineWidth: selected ? 2 : 1
                 )
         )
-        .shadow(color: selected ? .black.opacity(palette.light ? 0.10 : 0.24) : .clear, radius: 10, x: 0, y: 6)
+        .shadow(color: selected ? Color(hex: 0x0f172a).opacity(0.10) : .clear, radius: 12, x: 0, y: 6)
         .overlay {
             NodeAnchorMarkers(palette: palette)
         }
-        .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .contentShape(RoundedRectangle(cornerRadius: palette.panelRadius, style: .continuous))
         .overlay(alignment: .bottomTrailing) {
             Image(systemName: "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 10))

@@ -7,11 +7,20 @@ struct TitleBar: View {
     let palette: AgentTracePalette
 
     var body: some View {
-        HStack(spacing: 12) {
-            HStack(spacing: 8) {
-                Text("AgentTrace")
+        HStack(spacing: 0) {
+            HStack(spacing: 10) {
+                Image(systemName: "point.3.connected.trianglepath.dotted")
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(palette.textSecondary)
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(palette.accent)
+                    .frame(width: 26, height: 26)
+                    .background(palette.accentBackground)
+                    .clipShape(Capsule())
+                    .overlay(Capsule().stroke(palette.accent.opacity(0.18), lineWidth: 1))
+
+                Text("Tether")
+                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .foregroundStyle(palette.text)
 
                 if let session {
                     Text(session.id)
@@ -24,23 +33,16 @@ struct TitleBar: View {
                         .overlay(Capsule().stroke(palette.border, lineWidth: 1))
                 }
             }
+            .padding(.horizontal, 12)
+            .frame(height: 42)
+            .background(Color.white.opacity(0.72), in: Capsule())
+            .overlay(Capsule().stroke(palette.border.opacity(0.92), lineWidth: 1))
+            .shadow(color: Color(hex: 0x0f172a).opacity(0.07), radius: 18, x: 0, y: 8)
 
             Spacer(minLength: 12)
         }
-        .frame(height: 44)
+        .frame(height: 64)
         .padding(.leading, 88)
         .padding(.trailing, 16)
-        .background(
-            LinearGradient(
-                colors: [palette.titleTop.opacity(0.64), palette.titleBottom.opacity(0.44)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
-        .overlay(alignment: .bottom) {
-            Rectangle()
-                .fill(palette.border)
-                .frame(height: 1)
-        }
     }
 }

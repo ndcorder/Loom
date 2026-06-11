@@ -6,10 +6,10 @@ import { Icon } from "@/components/Icon";
 import { trackEvent } from "@/lib/analytics";
 
 const PRODUCT_LINKS = [
-  { label: "Features", href: "/features" },
-  { label: "Inspector", href: "/inspector" },
-  { label: "How it works", href: "/how-it-works" },
-  { label: "Download", href: "/download" },
+  { label: "Product demo", href: "/#demo" },
+  { label: "Setup", href: "/#how" },
+  { label: "Privacy review", href: "/#security" },
+  { label: "Download", href: "/#download" },
 ];
 
 const DEVELOPER_LINKS = [
@@ -79,16 +79,42 @@ export function SiteHeader() {
           Tether
         </Link>
         <div className="nav-links">
-          <Link href="/features" onClick={() => trackEvent("navigation_clicked", { label: "Features", location: "header" })}>
-            Features
+          <details className="nav-solutions">
+            <summary>Solutions</summary>
+            <div className="nav-menu">
+              <Link href="/#use-cases" onClick={() => trackEvent("navigation_clicked", { label: "Founders", location: "header_solutions" })}>
+                <span>Founders</span>
+                <small>Show proof before the buyer asks.</small>
+              </Link>
+              <Link href="/#demo" onClick={() => trackEvent("navigation_clicked", { label: "Engineers", location: "header_solutions" })}>
+                <span>Engineers</span>
+                <small>Replay the exact node that broke.</small>
+              </Link>
+              <Link href="/#security" onClick={() => trackEvent("navigation_clicked", { label: "Security", location: "header_solutions" })}>
+                <span>Security</span>
+                <small>Keep traces local and inspectable.</small>
+              </Link>
+            </div>
+          </details>
+          <Link href="/#demo" onClick={() => trackEvent("navigation_clicked", { label: "Demo", location: "header" })}>
+            Demo
           </Link>
-          <Link href="/inspector" onClick={() => trackEvent("navigation_clicked", { label: "Inspector", location: "header" })}>
-            Inspector
+          <Link href="/#how" onClick={() => trackEvent("navigation_clicked", { label: "Setup", location: "header" })}>
+            Setup
           </Link>
-          <Link href="/how-it-works" onClick={() => trackEvent("navigation_clicked", { label: "How it works", location: "header" })}>
-            How it works
+          <Link href="/#security" onClick={() => trackEvent("navigation_clicked", { label: "Security", location: "header" })}>
+            Security
           </Link>
-          <Link href="/download" onClick={() => trackEvent("navigation_clicked", { label: "Download", location: "header" })}>
+          <Link href="/#faq" onClick={() => trackEvent("navigation_clicked", { label: "FAQ", location: "header" })}>
+            FAQ
+          </Link>
+        </div>
+        <div className="nav-actions">
+          <Link
+            className="nav-cta"
+            href="/#download"
+            onClick={() => trackEvent("cta_clicked", { button_text: "Download", location: "header" })}
+          >
             Download
           </Link>
         </div>
@@ -109,8 +135,8 @@ export function SiteFooter() {
             Tether
           </Link>
           <p>
-            Local-first observability and mocking for LLM agents. Built for developers who refuse to debug in
-            the dark.
+            Local-first trace debugging, replay, and mocking for LLM agents. Built for teams that need proof
+            without sending prompts to another cloud.
           </p>
         </div>
         <div className="foot-col">

@@ -8,51 +8,60 @@ public struct AgentTracePalette {
         self.light = light
     }
 
-    public var stage: Color { light ? Color(hex: 0xe7e9ee) : Color(hex: 0x08080a) }
-    public var stageGlowOne: Color { light ? Color(hex: 0xeef1f6) : Color(hex: 0x1a1a1f) }
-    public var stageGlowTwo: Color { light ? Color(hex: 0xeaeef4) : Color(hex: 0x14171c) }
+    public var stage: Color { Color.white }
+    public var stageGlowOne: Color { Color(hex: 0xfafafa) }
+    public var stageGlowTwo: Color { Color(hex: 0xf4f4f5) }
+    public var gridLine: Color { Color(hex: 0xf0f0f0) }
 
-    public var window: Color { light ? Color.white : Color(hex: 0x0d0d0d) }
-    public var panel: Color { light ? Color(hex: 0xf4f4f6) : Color(hex: 0x161616) }
-    public var panelSecondary: Color { light ? Color(hex: 0xfafafc) : Color(hex: 0x121212) }
-    public var elevated: Color { light ? Color.white : Color(hex: 0x1c1c1e) }
-    public var active: Color { light ? Color(hex: 0xe3e3e8) : Color(hex: 0x26262a) }
-    public var border: Color { light ? Color(hex: 0xe2e2e6) : Color(hex: 0x2d2d2d) }
-    public var borderSoft: Color { light ? Color(hex: 0xededf0) : Color(hex: 0x232325) }
-    public var borderStrong: Color { light ? Color(hex: 0xcfcfd6) : Color(hex: 0x3a3a3d) }
+    public var paperRadius: CGFloat { 28 }
+    public var panelRadius: CGFloat { 18 }
+    public var controlRadius: CGFloat { 999 }
 
-    public var titleTop: Color { light ? Color(hex: 0xfbfbfd) : Color(hex: 0x1b1b1d) }
-    public var titleBottom: Color { light ? Color(hex: 0xf3f3f5) : Color(hex: 0x161618) }
-    public var nodeTop: Color { light ? Color.white : Color(hex: 0x1a1a1c) }
-    public var nodeBottom: Color { light ? Color(hex: 0xfbfbfd) : Color(hex: 0x161618) }
-    public var gridDot: Color { light ? Color.black.opacity(0.05) : Color.white.opacity(0.028) }
-    public var glassTint: Color { light ? Color.white.opacity(0.34) : Color.white.opacity(0.10) }
-    public var glassTintStrong: Color { light ? Color.white.opacity(0.54) : Color.white.opacity(0.18) }
-    public var glassStroke: Color { light ? Color.white.opacity(0.74) : Color.white.opacity(0.16) }
-    public var glassStrokeSoft: Color { light ? Color.black.opacity(0.08) : Color.white.opacity(0.08) }
-    public var glassHighlight: Color { light ? Color.white.opacity(0.86) : Color.white.opacity(0.28) }
-    public var liquidShade: Color { light ? Color.black.opacity(0.07) : Color.black.opacity(0.34) }
+    public var window: Color { Color.white }
+    public var panel: Color { Color(hex: 0xfafafa) }
+    public var panelSecondary: Color { Color(hex: 0xf4f4f5) }
+    public var elevated: Color { Color.white }
+    public var active: Color { Color(hex: 0xe4e4e7) }
+    public var border: Color { Color(hex: 0xe4e4e7) }
+    public var borderSoft: Color { Color(hex: 0xeeeeef) }
+    public var borderStrong: Color { Color(hex: 0xd4d4d8) }
 
-    public var text: Color { light ? Color(hex: 0x1a1a1c) : Color(hex: 0xededef) }
-    public var textSecondary: Color { light ? Color(hex: 0x46464b) : Color(hex: 0xb4b4b8) }
-    public var textTertiary: Color { light ? Color(hex: 0x76767c) : Color(hex: 0x7d7d83) }
-    public var textQuaternary: Color { light ? Color(hex: 0xa2a2a9) : Color(hex: 0x5a5a60) }
+    public var titleTop: Color { Color.white.opacity(0.88) }
+    public var titleBottom: Color { Color(hex: 0xf8fafc).opacity(0.76) }
+    public var paperTop: Color { Color(hex: 0xfafafa).opacity(0.94) }
+    public var paperBottom: Color { Color(hex: 0xf4f4f5).opacity(0.86) }
+    public var nodeTop: Color { Color.white }
+    public var nodeBottom: Color { Color(hex: 0xfafafa) }
+    public var gridDot: Color { Color.black.opacity(0.055) }
+    public var glassTint: Color { Color.white.opacity(0.74) }
+    public var glassTintStrong: Color { Color.white.opacity(0.88) }
+    public var glassStroke: Color { Color.white.opacity(0.90) }
+    public var glassStrokeSoft: Color { Color.black.opacity(0.08) }
+    public var glassHighlight: Color { Color.white.opacity(0.96) }
+    public var liquidShade: Color { Color(hex: 0x0f172a).opacity(0.10) }
 
-    public var green: Color { light ? Color(hex: 0x14935b) : Color(hex: 0x74e0a8) }
-    public var greenDim: Color { light ? Color(hex: 0xb7e6cd) : Color(hex: 0x2c4a3c) }
+    public var text: Color { Color(hex: 0x18181b) }
+    public var textSecondary: Color { Color(hex: 0x3f3f46) }
+    public var textTertiary: Color { Color(hex: 0x71717a) }
+    public var textQuaternary: Color { Color(hex: 0xa1a1aa) }
+
+    public var green: Color { Color(hex: 0x10b981) }
+    public var greenDim: Color { Color(hex: 0xa7f3d0) }
     public var greenBackground: Color { green.opacity(0.10) }
-    public var cyan: Color { light ? Color(hex: 0x0e8aa6) : Color(hex: 0x74cfe0) }
-    public var cyanDim: Color { light ? Color(hex: 0xb3e2ee) : Color(hex: 0x2c4248) }
+    public var cyan: Color { Color(hex: 0x0284c7) }
+    public var cyanDim: Color { Color(hex: 0xbae6fd) }
     public var cyanBackground: Color { cyan.opacity(0.10) }
-    public var pink: Color { light ? Color(hex: 0xd83a63) : Color(hex: 0xff8aa4) }
-    public var pinkDim: Color { light ? Color(hex: 0xf4c2d0) : Color(hex: 0x4a2c34) }
-    public var pinkBackground: Color { pink.opacity(light ? 0.09 : 0.10) }
-    public var pinkText: Color { light ? Color(hex: 0xc2336a) : Color(hex: 0xffb3c2) }
-    public var violet: Color { light ? Color(hex: 0x6b4bd6) : Color(hex: 0xb39cf5) }
-    public var violetBorder: Color { light ? Color(hex: 0xd7cef5) : Color(hex: 0x34304a) }
-    public var amber: Color { light ? Color(hex: 0xb67d12) : Color(hex: 0xf5cd7a) }
-    public var accent: Color { light ? Color(hex: 0x2f7df0) : Color(hex: 0x5aa0ff) }
-    public var accentBackground: Color { accent.opacity(light ? 0.13 : 0.14) }
+    public var pink: Color { Color(hex: 0xdb2777) }
+    public var pinkDim: Color { Color(hex: 0xfbcfe8) }
+    public var pinkBackground: Color { pink.opacity(0.10) }
+    public var pinkText: Color { Color(hex: 0xbe185d) }
+    public var violet: Color { Color(hex: 0x7c3aed) }
+    public var violetBorder: Color { Color(hex: 0xddd6fe) }
+    public var amber: Color { Color(hex: 0xd97706) }
+    public var accent: Color { Color(hex: 0x4f46e5) }
+    public var accentTwo: Color { Color(hex: 0x9333ea) }
+    public var accentThree: Color { Color(hex: 0xec4899) }
+    public var accentBackground: Color { accent.opacity(0.10) }
 
     public func color(for status: NodeStatus) -> Color {
         switch status {
@@ -137,7 +146,7 @@ public struct LiquidGlassModifier<S: Shape>: ViewModifier {
                     .blur(radius: 0.2)
                     .padding(1)
             }
-            .shadow(color: palette.liquidShade.opacity(0.55), radius: 6, x: 0, y: 4)
+            .shadow(color: palette.liquidShade.opacity(0.42), radius: 10, x: 0, y: 5)
     }
 }
 

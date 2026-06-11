@@ -56,7 +56,7 @@ struct AgentTraceMenuCommands: Commands {
         }
 
         CommandGroup(replacing: .help) {
-            Button("AgentTrace Help") {
+            Button("Tether Help") {
                 NotificationCenter.default.post(name: .agentTraceShowOnboarding, object: nil)
             }
 
@@ -67,7 +67,7 @@ struct AgentTraceMenuCommands: Commands {
             Divider()
 
             Button("Send Feedback...") {
-                if let url = URL(string: "mailto:?subject=AgentTrace%20Feedback") {
+                if let url = URL(string: "mailto:?subject=Tether%20Feedback") {
                     NSWorkspace.shared.open(url)
                 }
             }
