@@ -592,6 +592,14 @@ export default function TetherLanding() {
         <div className="product-shot reveal">
           <div className="product-shot-glow" />
           <div className="product-shot-frame">
+            <div className="browser-bar" aria-hidden="true">
+              <span className="traffic">
+                <i className="r" />
+                <i className="y" />
+                <i className="g" />
+              </span>
+              <span className="browser-url">localhost:8080/v1/traces/support-agent</span>
+            </div>
             <Image
               alt="Tether showing a live AI agent trace graph with response metadata"
               className="product-shot-image"
