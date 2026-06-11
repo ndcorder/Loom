@@ -9,11 +9,11 @@ const YANDEX_METRIKA_ID = 109761424;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Tether — Local AI Agent Debugger & LLM Observability for macOS",
+    default: "Tether - Local AI Agent Trace Debugger for macOS",
     template: "%s | Tether",
   },
   description:
-    "Intercept, inspect, and replay every LLM call from your AI agents — entirely on your Mac. Local proxy for OpenAI, Anthropic & Ollama. No SDK changes, no data leaves the machine.",
+    "Trace, inspect, cache, mock, and replay every LLM call from your AI agents entirely on your Mac. Local proxy for OpenAI, Anthropic, Ollama, LangChain, and LangGraph.",
   keywords: [
     "AI agent debugger",
     "LLM observability",
@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     "AI debugging macOS",
     "local AI observability",
     "agent replay",
+    "AI agent trace replay",
+    "local LangSmith alternative",
+    "LLM debugging privacy",
   ],
   authors: [{ name: "Tether" }],
   creator: "Tether",
@@ -42,9 +45,9 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: "Tether",
-    title: "Tether — Local AI Agent Debugger for macOS",
+    title: "Tether - Local AI Agent Trace Debugger for macOS",
     description:
-      "Intercept & replay every LLM call from your AI agents. Local proxy, zero SDK changes, 100% private. Free alpha for macOS.",
+      "Intercept, inspect, cache, mock, and replay every LLM call from your AI agents. Local proxy, one base_url change, no prompt uploads.",
     images: [
       {
         url: "/Tether.PNG",
@@ -57,9 +60,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tether — Local AI Agent Debugger for macOS",
+    title: "Tether - Local AI Agent Trace Debugger for macOS",
     description:
-      "Intercept & replay every LLM call from your AI agents. Local proxy, zero SDK changes, 100% private.",
+      "Intercept, inspect, cache, mock, and replay every LLM call from your AI agents. Local proxy, one base_url change, no prompt uploads.",
     images: ["/Tether.PNG"],
   },
   alternates: {
@@ -76,7 +79,7 @@ const jsonLd = {
       name: "Tether",
       url: SITE_URL,
       description:
-        "Local-first observability and debugging tool for AI agents and LLM applications on macOS.",
+        "Local-first trace debugging, replay, and mocking tool for AI agents and LLM applications on macOS.",
     },
     {
       "@type": "SoftwareApplication",
@@ -92,12 +95,13 @@ const jsonLd = {
       },
       publisher: { "@id": `${SITE_URL}/#organization` },
       description:
-        "Tether intercepts every LLM call from your AI agents, visualizes complex agent trees, and lets you replay or mock responses — entirely locally on your Mac. Supports OpenAI, Anthropic, Ollama, LangChain, LangGraph, and more.",
+        "Tether intercepts every LLM call from your AI agents, visualizes complex agent trees, and lets you cache, replay, or mock responses entirely locally on your Mac. Supports OpenAI, Anthropic, Ollama, LangChain, LangGraph, and more.",
       featureList: [
         "Local LLM proxy — zero SDK changes",
         "Real-time agent trace visualization",
         "Request/response time-travel replay",
         "Response mocking for offline testing",
+        "Local response cache for repeated runs",
         "API key storage in macOS Keychain",
         "Air-gapped — no data leaves the machine",
       ],

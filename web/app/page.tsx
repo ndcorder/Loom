@@ -31,6 +31,38 @@ const TRUST_PROVIDERS: { icon: LandingIconName; label: string }[] = [
   { icon: "cube", label: "LlamaIndex" },
 ];
 
+const PROOF_CARDS: {
+  icon: LandingIconName;
+  title: string;
+  copy: string;
+  meta: string;
+}[] = [
+  {
+    icon: "diagram-project",
+    title: "Trace every tool call",
+    copy: "Nested LLM calls, tools, retries, and sub-agents land in one readable graph.",
+    meta: "Live DAG",
+  },
+  {
+    icon: "clock-rotate-left",
+    title: "Replay from the break",
+    copy: "Mock one bad response and rerun only the downstream chain instead of burning tokens.",
+    meta: "Time travel",
+  },
+  {
+    icon: "database",
+    title: "Cache expensive steps",
+    copy: "Identical prompts return from local SQLite so iteration is fast and cheap.",
+    meta: "$0 cached hits",
+  },
+  {
+    icon: "shield-halved",
+    title: "Keep evidence local",
+    copy: "Prompts, responses, keys, and trace history stay on the developer's Mac.",
+    meta: "No Tether cloud",
+  },
+];
+
 const FEATURES: {
   view: InspectorView;
   acc: "green" | "cyan" | "amber" | "violet";
@@ -42,29 +74,29 @@ const FEATURES: {
     view: "graph",
     acc: "green",
     icon: "diagram-project",
-    title: "Visual Tree",
-    copy: "Render the full call graph, node by node.",
+    title: "Call graph",
+    copy: "See the exact branch, retry, and tool call path.",
   },
   {
     view: "cache",
     acc: "cyan",
     icon: "bolt",
-    title: "Local Response Cache",
-    copy: "Inspect cache metadata: is_cached, 0ms latency, $0.",
+    title: "Cache ledger",
+    copy: "Verify is_cached, 0ms latency, and token savings.",
   },
   {
     view: "time",
     acc: "amber",
     icon: "clock-rotate-left",
-    title: "Time-Travel Mocking",
-    copy: "Edit a past response and replay the chain.",
+    title: "Replay editor",
+    copy: "Patch a past response and rerun downstream steps.",
   },
   {
     view: "privacy",
     acc: "violet",
     icon: "shield-halved",
-    title: "Air-Gapped Privacy",
-    copy: "Keys in Keychain, traces in local SQLite.",
+    title: "Local evidence",
+    copy: "Confirm keys, traces, and prompts stay on-device.",
   },
 ];
 
@@ -89,41 +121,41 @@ const TREE_LAYOUT: {
 
 const FAQ_ITEMS: { q: string; a: ReactNode }[] = [
   {
-    q: "Is Tether free?",
-    a: "Yes. Tether is free during the alpha period and the core proxy is open source. No credit card or account required.",
+    q: "We already use LangSmith or Langfuse. Why Tether?",
+    a: "Those tools are strong for hosted observability and team workflows. Tether is for local debugging when prompts, API keys, customer data, or unreleased agent behavior should not leave the Mac. It also focuses on replaying from a failed node, not just storing traces.",
   },
   {
-    q: "Does Tether send my prompts or API keys anywhere?",
-    a: "No. Tether is fully air-gapped. Your prompts, responses, and API keys never leave your Mac. API keys are stored encrypted in the macOS Keychain and are never written to disk in plain text.",
+    q: "Does Tether send prompts, responses, or API keys anywhere?",
+    a: "No. Tether is local-first. Prompts, responses, and traces stay in local storage, while API keys are stored through macOS Keychain. The proxy only talks to the providers you configure.",
   },
   {
-    q: "How does Tether intercept LLM calls without changing my code?",
-    a: "Tether runs a local HTTP proxy on your machine. You point your AI client's base_url at http://localhost:8080/v1 — that's the only change. Tether transparently forwards every request to the real provider and records the full request/response pair locally.",
+    q: "How does Tether intercept LLM calls without changing my app?",
+    a: "Tether runs a local HTTP proxy. You point your AI client's base_url at http://localhost:8080/v1 and keep the rest of your code the same. Tether forwards requests to the real provider and records the full request/response pair locally.",
   },
   {
     q: "Which LLM providers and frameworks does Tether support?",
     a: "Tether supports OpenAI, Anthropic (Claude), Ollama, LM Studio, and any provider that accepts an OpenAI-compatible base_url. It works with LangChain, LangGraph, LlamaIndex, and any SDK with a configurable endpoint.",
   },
   {
-    q: "How is Tether different from LangSmith or Weights & Biases?",
-    a: "LangSmith and W&B send your traces to cloud servers. Tether keeps everything on your machine — there is no cloud, no account, and nothing leaves your Mac. It's designed for developers who can't or won't send production prompts to third-party services.",
+    q: "Can this help with a security review?",
+    a: "Yes, especially for early buyer reviews. Tether gives you concrete answers for where traces live, how keys are stored, whether telemetry exists, and how a failed run can be reproduced without shipping customer prompts to another vendor.",
   },
   {
     q: "What is time-travel mocking?",
-    a: "Time-travel mocking lets you click any past node in the agent trace, edit its response JSON, and replay the entire chain from that point forward — without re-running earlier steps or spending tokens. You can test how your agent would behave with a different LLM output in seconds.",
+    a: "Time-travel mocking lets you click any past node in the agent trace, edit its response JSON, and replay the chain from that point forward without re-running earlier steps or spending tokens. You can test how your agent would behave with a different LLM output in seconds.",
   },
   {
     q: "Why not just use print() or logging?",
     a: (
       <>
         Logging shows you what happened. Tether shows you <em>why</em>. You see the exact point where your agent
-        failed, what response broke it, and you replay with a fix in seconds—no re-running the whole chain.
+        failed, what response broke it, and you replay with a fix in seconds - no re-running the whole chain.
       </>
     ),
   },
   {
     q: "Can I use this with production code?",
-    a: "Yes. It's a local proxy—your real code doesn't change. Use it locally for debugging, or keep it running. Tether only stores traces locally, never sends anything anywhere.",
+    a: "Yes. It is a local proxy, so your real code does not need SDK instrumentation. Use it locally while debugging sensitive flows, demos, eval runs, or production-like traces that cannot be copied into a hosted dashboard.",
   },
   {
     q: "How much money does caching actually save?",
@@ -131,15 +163,70 @@ const FAQ_ITEMS: { q: string; a: ReactNode }[] = [
   },
   {
     q: "Will Tether work with my stack?",
-    a: "If your SDK uses a configurable base_url (OpenAI SDK, LangChain, LangGraph, LlamaIndex, Anthropic SDK), it works. One line change. If you use a different provider (Claude API via REST, custom setup), Tether still works—it's a transparent proxy.",
+    a: "If your SDK uses a configurable base_url, it works with one line change. That includes OpenAI SDKs, LangChain, LangGraph, LlamaIndex, Anthropic-compatible setups, Ollama, LM Studio, and custom OpenAI-compatible gateways.",
   },
   {
     q: "Does Tether add latency to my agent?",
-    a: "Negligible. Tether runs locally on your Mac. The only overhead is the proxy hop, which is <1ms. Real LLM calls are the bottleneck, not Tether.",
+    a: "Negligible. Tether runs locally on your Mac. The only overhead is the proxy hop, which is usually less than 1ms. Real LLM calls are the bottleneck, not Tether.",
   },
   {
     q: "Can I share traces with my team?",
     a: "Not yet. Each developer runs their own Tether instance locally. Export as JSON is coming in a later release.",
+  },
+];
+
+const USE_CASES: {
+  label: string;
+  title: string;
+  copy: string;
+  bullets: string[];
+}[] = [
+  {
+    label: "Founders",
+    title: "Unblock demos that fail under pressure.",
+    copy: "When an agent derails during a buyer call, replay the exact branch instead of guessing which prompt broke.",
+    bullets: ["Demo-safe local traces", "Fast post-call root cause", "No customer prompt uploads"],
+  },
+  {
+    label: "Engineers",
+    title: "Debug the whole agent, not one log line.",
+    copy: "Inspect requests, responses, tokens, latency, cache hits, and downstream effects from the same canvas.",
+    bullets: ["Nested tool visibility", "Mock any response", "Rerun only downstream nodes"],
+  },
+  {
+    label: "Privacy",
+    title: "Answer review questions with evidence.",
+    copy: "Show where traces live, how keys are stored, and what leaves the machine before compliance asks.",
+    bullets: ["Keychain storage", "Local SQLite traces", "Provider-only network path"],
+  },
+  {
+    label: "Eval teams",
+    title: "Turn failures into reproducible cases.",
+    copy: "Capture weird one-off agent behavior and replay it with changed LLM outputs until the fix is obvious.",
+    bullets: ["Stable sample runs", "Cached expensive calls", "Export-ready trace history"],
+  },
+];
+
+const REVIEW_ROWS: { control: string; evidence: string; proof: string }[] = [
+  {
+    control: "Prompt and response storage",
+    evidence: "Trace data is written to local SQLite on the developer machine.",
+    proof: "~/.Tether/traces.sqlite",
+  },
+  {
+    control: "API key handling",
+    evidence: "Provider secrets are stored through macOS Keychain, not in plaintext project files.",
+    proof: "macOS Keychain",
+  },
+  {
+    control: "Telemetry posture",
+    evidence: "The app does not require a hosted Tether account for local debugging.",
+    proof: "No cloud workspace",
+  },
+  {
+    control: "Reproducible failures",
+    evidence: "Failed runs can be replayed from a selected node with mocked outputs.",
+    proof: "Replay chain",
   },
 ];
 
@@ -423,7 +510,7 @@ export default function TetherLanding() {
         <div className="center-row">
           <span className="eyebrow">
             <span className="dot" />
-            Local-first observability for <b>macOS</b>
+            Local-first agent evidence for <b>macOS</b>
           </span>
         </div>
         <div className="center-row sp-row">
@@ -436,16 +523,16 @@ export default function TetherLanding() {
               <span className="sp-av" style={{ background: "linear-gradient(135deg,#ff8aa4,#f5cd7a)" }} />
             </div>
             <span className="sp-text">
-              Used by developers building production AI agents
+              Built for teams shipping agents into real buyer reviews
             </span>
           </div>
         </div>
         <h1>
-          Stop debugging AI agents <span className="grad">in the dark.</span>
+          Agent demo stuck on a failure you <span className="grad">cannot explain?</span>
         </h1>
         <p className="lead">
-          Point your agent at localhost. Every LLM call becomes a node in a live trace tree -
-          with caching, mocking, and zero data leaving your machine.
+          Point your agent at localhost. Tether turns every LLM call, tool execution, cache hit,
+          and failed branch into a local trace you can inspect, replay, and show as proof.
         </p>
         <div className="cta-row">
           <a
@@ -463,42 +550,42 @@ export default function TetherLanding() {
           </a>
           <a
             className="btn btn-ghost"
-            href="#features"
+            href="#demo"
             onClick={() =>
               trackEvent("cta_clicked", {
-                button_text: "See it in action",
+                button_text: "Try the sample trace",
                 location: "hero",
               })
             }
           >
             <LandingIcon name="play" />
-            See it in action
+            Try the sample trace
           </a>
         </div>
         <a
           className="urgency-link"
-          href="#download"
+          href="#security"
           onClick={() =>
             trackEvent("cta_clicked", {
-              button_text: "Currently alpha limited seats",
+              button_text: "See privacy proof",
               location: "hero_urgency",
             })
           }
         >
-          Currently alpha — limited seats. Get access now <span aria-hidden="true">→</span>
+          Security review asking where traces live? See the proof layer <span aria-hidden="true">-&gt;</span>
         </a>
         <div className="meta-row">
           <span>
-            <LandingIcon name="microchip" />
-            Free alpha. No signup.
+            <LandingIcon name="database" />
+            Local SQLite traces.
           </span>
           <span>
             <LandingIcon name="feather" />
-            1-minute setup.
+            One base_url change.
           </span>
           <span>
             <LandingIcon name="shield-halved" />
-            Everything stays on your Mac.
+            Keys stay in Keychain.
           </span>
         </div>
 
@@ -519,8 +606,25 @@ export default function TetherLanding() {
         </div>
       </header>
 
+      <section className="proof-strip wrap reveal">
+        <div className="proof-grid">
+          {PROOF_CARDS.map((card) => (
+            <article className="proof-card" key={card.title}>
+              <span className="proof-icon">
+                <LandingIcon name={card.icon} />
+              </span>
+              <div>
+                <div className="proof-meta">{card.meta}</div>
+                <h2>{card.title}</h2>
+                <p>{card.copy}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="trust wrap reveal">
-        <p>Sits transparently in front of any provider</p>
+        <p>Sits transparently in front of the stack your agent already uses</p>
         <div className="trust-row">
           {TRUST_PROVIDERS.map((provider) => (
             <span className="prov" key={provider.label}>
@@ -531,13 +635,13 @@ export default function TetherLanding() {
         </div>
       </section>
 
-      <section className="section-pad wrap" id="features">
+      <section className="section-pad wrap deferred-section" id="features">
         <div className="section-head reveal">
-          <div className="kicker">The 3-pane blueprint</div>
-          <h2 className="title">Every agent run, drawn as a tree you can read.</h2>
+          <div className="kicker">Product proof</div>
+          <h2 className="title">Every agent run, drawn as evidence you can read.</h2>
           <p className="section-sub">
-            Messy terminal logs become a hierarchical node graph in real time.
-            Each LLM request is a node - color-coded by what actually happened.
+            Messy terminal logs become a hierarchical trace in real time. Each LLM request,
+            tool call, retry, cache hit, and failure is color-coded by what actually happened.
           </p>
         </div>
 
@@ -609,11 +713,11 @@ export default function TetherLanding() {
               <div className="bico">
                 <LandingIcon name="diagram-project" />
               </div>
-              <h3>The Visual Tree Canvas</h3>
+              <h3>Visual trace canvas</h3>
               <p>
-                Every LLM request becomes a node in a graph. Nested tool-calls,
-                retries, and sub-agents nest automatically - so the shape of
-                your agent&apos;s reasoning is finally something you can see,
+                Every LLM request becomes a node in a graph. Nested tool calls,
+                retries, and sub-agents nest automatically, so the shape of
+                your agent&apos;s behavior is finally something you can inspect,
                 not scroll past.
               </p>
               <div className="bstat">
@@ -626,10 +730,10 @@ export default function TetherLanding() {
               <div className="bico">
                 <LandingIcon name="bolt" />
               </div>
-              <h3>Local Response Cache</h3>
+              <h3>Local response cache</h3>
               <p>
                 Identical prompts return instantly from local cache. Iterate on
-                downstream logic without re-running - or re-paying for - upstream
+                downstream logic without re-running or re-paying for upstream
                 calls. $0.0000 per cached hit.
               </p>
               <div className="bstat">
@@ -641,10 +745,10 @@ export default function TetherLanding() {
               <div className="bico">
                 <LandingIcon name="clock-rotate-left" />
               </div>
-              <h3>Time-Travel Mocking</h3>
+              <h3>Time-travel mocking</h3>
               <p>
                 Your agent failed at step 4. Rewrite that node&apos;s output and
-                replay from there - no re-running the full chain, no wasted
+                replay from there. No re-running the full chain, no wasted
                 tokens. Fix the exact break, not the whole pipeline.
               </p>
               <div className="bstat">
@@ -655,12 +759,11 @@ export default function TetherLanding() {
               <div className="bico">
                 <LandingIcon name="shield-halved" />
               </div>
-              <h3>Air-Gapped Privacy</h3>
+              <h3>Air-gapped privacy</h3>
               <p>
                 API keys live encrypted in the macOS Keychain. Prompts,
                 responses, and traces stay in a local SQLite database that never
-                leaves the machine. Nothing is phoned home - verify it yourself
-                with Little Snitch.
+                leaves the machine. Nothing requires a hosted Tether workspace.
               </p>
               <div className="bstat">
                 <span className="metric-chip ok">
@@ -674,14 +777,13 @@ export default function TetherLanding() {
         </div>
       </section>
 
-      <section className="section-pad wrap" id="inspector">
+      <section className="section-pad wrap deferred-section" id="demo">
         <div className="section-head reveal">
-          <div className="kicker">Synced inspector</div>
-          <h2 className="title">Click a capability. Watch the inspector react.</h2>
+          <div className="kicker">Embedded sample trace</div>
+          <h2 className="title">Try the debugger before you wire it into your app.</h2>
           <p className="section-sub">
-            The right pane is the real app&apos;s inspector. Pick a feature on
-            the left - it switches state exactly like clicking a node in
-            Tether.
+            The right pane mirrors the app inspector. Pick a capability on the left
+            and the trace evidence changes like clicking a live node in Tether.
           </p>
         </div>
 
@@ -841,19 +943,19 @@ export default function TetherLanding() {
         </div>
       </section>
 
-      <section className="section-pad wrap" id="how">
+      <section className="section-pad wrap deferred-section" id="how">
         <div className="section-head reveal">
-          <div className="kicker">Three lines to first trace</div>
-          <h2 className="title">No SDK. Just change one base URL.</h2>
+          <div className="kicker">From localhost to proof in three steps</div>
+          <h2 className="title">No SDK rewrite. Just route the run through Tether.</h2>
           <p className="section-sub">
             Tether is a transparent proxy. Point your client at localhost
-            and every call shows up in the canvas - no code instrumentation, no
-            decorators.
+            and every call shows up in the canvas with request, response, latency,
+            tokens, cache state, and replay controls.
           </p>
         </div>
         <div className="steps">
           <div className="step reveal">
-            <div className="num">01 -</div>
+            <div className="num">01 / LOG</div>
             <h4>Point the base_url</h4>
             <p>Swap your client&apos;s endpoint for the local proxy. Works with any OpenAI-compatible SDK.</p>
             <div className="codebox">
@@ -866,9 +968,9 @@ export default function TetherLanding() {
             </div>
           </div>
           <div className="step reveal">
-            <div className="num">02 -</div>
+            <div className="num">02 / REPLAY</div>
             <h4>Run your agent</h4>
-            <p>Run anything as usual. Every request is intercepted, cached, and streamed into the tree live.</p>
+            <p>Run the same scenario. Every request is intercepted, cached, and streamed into the tree live.</p>
             <div className="codebox">
               <span className="cm"># nothing else changes</span>
               <br />
@@ -878,7 +980,7 @@ export default function TetherLanding() {
             </div>
           </div>
           <div className="step reveal">
-            <div className="num">03 -</div>
+            <div className="num">03 / PROVE</div>
             <h4>Inspect &amp; replay</h4>
             <p>
               Open the canvas, click the node that broke, rewrite its output,
@@ -896,10 +998,65 @@ export default function TetherLanding() {
         </div>
       </section>
 
-      <section className="section-pad wrap" id="faq">
+      <section className="section-pad wrap usecases deferred-section" id="use-cases">
         <div className="section-head reveal">
-          <div className="kicker">Common questions</div>
-          <h2 className="title">Everything you need to know.</h2>
+          <div className="kicker">Use cases</div>
+          <h2 className="title">Same trace, different buyer questions.</h2>
+          <p className="section-sub">
+            Tether is positioned for local debugging, but the artifact is useful
+            across demos, engineering review, privacy review, and evaluation work.
+          </p>
+        </div>
+        <div className="usecase-grid">
+          {USE_CASES.map((useCase) => (
+            <article className="usecase-card reveal" key={useCase.label}>
+              <div className="usecase-label">{useCase.label}</div>
+              <h3>{useCase.title}</h3>
+              <p>{useCase.copy}</p>
+              <ul>
+                {useCase.bullets.map((bullet) => (
+                  <li key={bullet}>
+                    <LandingIcon name="check-circle" />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-pad wrap review-section deferred-section" id="security">
+        <div className="review-layout">
+          <div className="section-head reveal">
+            <div className="kicker">Built for the privacy review</div>
+            <h2 className="title">Answer the uncomfortable questions before they stall the deal.</h2>
+            <p className="section-sub">
+              Hosted dashboards are hard to approve when traces include prompts, customer records,
+              or agent decisions. Tether keeps the debugging layer local and makes that posture explicit.
+            </p>
+          </div>
+          <div className="review-table reveal">
+            <div className="review-row review-head">
+              <span>Question</span>
+              <span>Answer</span>
+              <span>Proof</span>
+            </div>
+            {REVIEW_ROWS.map((row) => (
+              <div className="review-row" key={row.control}>
+                <span>{row.control}</span>
+                <span>{row.evidence}</span>
+                <code>{row.proof}</code>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad wrap deferred-section" id="faq">
+        <div className="section-head reveal">
+          <div className="kicker">Objections</div>
+          <h2 className="title">Questions buyers and engineers ask first.</h2>
         </div>
         <div className="faq-list">
           {FAQ_ITEMS.map(({ q, a }) => (
@@ -911,13 +1068,14 @@ export default function TetherLanding() {
         </div>
       </section>
 
-      <section className="section-pad wrap feedback-section" id="feedback">
+      <section className="section-pad wrap feedback-section deferred-section" id="feedback">
         <div className="feedback-card reveal">
           <div className="section-head compact">
             <div className="kicker">Feedback loop</div>
-            <h2 className="title">Tell me what breaks first.</h2>
+            <h2 className="title">Tell me which trace would make this useful.</h2>
             <p className="section-sub">
-              Alpha users shape the next build. Send the bug, missing workflow, or reason you would not use this yet.
+              Alpha users shape the next build. Send the bug, missing workflow, or security objection that would
+              stop you from using Tether.
             </p>
           </div>
           <form
@@ -994,18 +1152,18 @@ export default function TetherLanding() {
         </div>
       </section>
 
-      <section className="section-pad wrap finalcta" id="download">
+      <section className="section-pad wrap finalcta deferred-section" id="download">
         <div className="cta-card reveal">
           <h2>
-            Trace your first agent
+            Get a replayable trace
             <br />
-            in under a minute.
+            before the next demo.
           </h2>
           <p>
-            Free during alpha. Get the signed DMG the moment it's ready - no
-            account, no cloud, no strings.
+            Free during alpha. Download the current DMG or join the list for the next signed build.
+            No account, no cloud workspace, no prompt uploads.
           </p>
-          <p className="alpha-note">⚡ Limited alpha slots. Mac only for now.</p>
+          <p className="alpha-note">Limited alpha. macOS only for now.</p>
           <div className="download-actions">
             <div className="download-direct">
               <a
