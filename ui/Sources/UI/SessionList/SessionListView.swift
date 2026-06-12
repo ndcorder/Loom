@@ -1,37 +1,52 @@
-import ComposableArchitecture
 import Core
 import SwiftUI
 
 public struct SessionListView: View {
-    let store: StoreOf<SessionListFeature>
+    let sessions: [TraceSession]
+    let selectedSessionId: TraceSession.ID?
+    let liveSessionId: TraceSession.ID?
+    let onSelect: (TraceSession.ID) -> Void
     let palette: AgentTracePalette
 
-    public init(store: StoreOf<SessionListFeature>, palette: AgentTracePalette) {
-        self.store = store
+    public init(
+        sessions: [TraceSession],
+        selectedSessionId: TraceSession.ID?,
+        liveSessionId: TraceSession.ID?,
+        onSelect: @escaping (TraceSession.ID) -> Void,
+        palette: AgentTracePalette
+    ) {
+        self.sessions = sessions
+        self.selectedSessionId = selectedSessionId
+        self.liveSessionId = liveSessionId
+        self.onSelect = onSelect
         self.palette = palette
+    }
+
+    private var countText: String {
+        sessions.isEmpty ? "0" : "\(sessions.count)"
     }
 
     public var body: some View {
         VStack(spacing: 0) {
             SidebarSectionHeader(
                 title: "Sessions",
-                detail: store.countText,
+                detail: countText,
                 palette: palette
             )
 
             ScrollView {
                 LazyVStack(spacing: 1) {
-                    if store.isEmpty {
+                    if sessions.isEmpty {
                         SessionsEmptyState(palette: palette)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 20)
                     } else {
-                        ForEach(store.rows) { row in
+                        ForEach(sessions) { session in
                             SessionRow(
-                                session: row.session,
-                                selected: row.selected,
-                                live: row.live,
-                                onSelect: { store.send(.sessionTapped(row.id)) },
+                                session: session,
+                                selected: session.id == selectedSessionId,
+                                live: session.id == liveSessionId,
+                                onSelect: { onSelect(session.id) },
                                 palette: palette
                             )
                         }

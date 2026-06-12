@@ -1,5 +1,4 @@
 import AppKit
-import ComposableArchitecture
 import Core
 import SwiftUI
 import UI
@@ -57,15 +56,10 @@ struct Sidebar: View {
             .padding(.bottom, 8)
 
             SessionListView(
-                store: Store(initialState: sessionListState) {
-                    SessionListFeature()
-                } withDependencies: {
-                    $0.sessionSelectionClient.select = { sessionId in
-                        await MainActor.run {
-                            onSelectSession(sessionId)
-                        }
-                    }
-                },
+                sessions: sessions,
+                selectedSessionId: selectedSessionId,
+                liveSessionId: liveSessionId,
+                onSelect: onSelectSession,
                 palette: palette
             )
 
@@ -133,14 +127,6 @@ struct Sidebar: View {
             }
         }
         .background(palette.panel.opacity(0.56))
-    }
-
-    private var sessionListState: SessionListFeature.State {
-        SessionListFeature.State(
-            sessions: sessions,
-            selectedSessionId: selectedSessionId,
-            liveSessionId: liveSessionId
-        )
     }
 }
 
