@@ -510,7 +510,8 @@ export default function TetherLanding() {
         <div className="center-row">
           <span className="eyebrow">
             <span className="dot" />
-            Local-first agent evidence for <b>macOS</b>
+            Your agent failed at step 3. You have no idea why. <b>Tether</b> shows you the exact
+            call, the exact response, and lets you replay from there.
           </span>
         </div>
         <div className="center-row sp-row">
@@ -523,7 +524,8 @@ export default function TetherLanding() {
               <span className="sp-av" style={{ background: "linear-gradient(135deg,#ff8aa4,#f5cd7a)" }} />
             </div>
             <span className="sp-text">
-              Built for teams shipping agents into real buyer reviews
+              One base_url change. No code rewrites. Every LLM call, tool execution, and failure
+              mapped live on your Mac.
             </span>
           </div>
         </div>
